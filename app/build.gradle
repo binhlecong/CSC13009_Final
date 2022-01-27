@@ -4,7 +4,7 @@ apply plugin: 'de.undercouch.download'
 android {
     compileSdkVersion 30
     defaultConfig {
-        applicationId "org.tensorflow.lite.examples.detection"
+        applicationId "com.hcmus.csc13009.examples.smartenglish"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1

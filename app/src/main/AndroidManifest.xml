@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.tensorflow.lite.examples.detection">
+    package="com.hcmus.csc13009.examples.smartenglish">
 
     <uses-sdk />
 
@@ -17,7 +17,7 @@
         android:theme="@style/AppTheme.ObjectDetection">
 
         <activity
-            android:name=".DetectorActivity"
+            android:name="com.hcmus.csc13009.examples.smartenglish.DetectorActivity"
             android:label="@string/tfe_od_app_name"
             android:screenOrientation="portrait">
             <intent-filter>
