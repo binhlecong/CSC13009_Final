@@ -69,7 +69,7 @@ public abstract class CameraActivity extends AppCompatActivity
     private static final String PERMISSION_CAMERA = Manifest.permission.CAMERA;
     protected int previewWidth = 0;
     protected int previewHeight = 0;
-    protected TextView frameValueTextView, cropValueTextView, inferenceTimeTextView;
+    protected TextView letterTextView;
     protected ImageView bottomSheetArrowImageView;
     private boolean debug = false;
     private Handler handler;
@@ -121,9 +121,9 @@ public abstract class CameraActivity extends AppCompatActivity
         apiSwitchCompat = findViewById(R.id.api_info_switch);
         bottomSheetLayout = findViewById(R.id.bottom_sheet_layout);
         gestureLayout = findViewById(R.id.gesture_layout);
-        sheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
         bottomSheetArrowImageView = findViewById(R.id.bottom_sheet_arrow);
         modeSwitchCompat = findViewById(R.id.mode_switch);
+        sheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
 
         ViewTreeObserver vto = gestureLayout.getViewTreeObserver();
         vto.addOnGlobalLayoutListener(
@@ -141,6 +141,7 @@ public abstract class CameraActivity extends AppCompatActivity
                         sheetBehavior.setPeekHeight(height);
                     }
                 });
+
         sheetBehavior.setHideable(false);
 
         sheetBehavior.setBottomSheetCallback(
@@ -148,19 +149,14 @@ public abstract class CameraActivity extends AppCompatActivity
                     @Override
                     public void onStateChanged(@NonNull View bottomSheet, int newState) {
                         switch (newState) {
+                            case BottomSheetBehavior.STATE_DRAGGING:
                             case BottomSheetBehavior.STATE_HIDDEN:
                                 break;
-                            case BottomSheetBehavior.STATE_EXPANDED: {
+                            case BottomSheetBehavior.STATE_EXPANDED:
                                 bottomSheetArrowImageView.setImageResource(R.drawable.icn_chevron_down);
-                            }
-                            break;
-                            case BottomSheetBehavior.STATE_COLLAPSED: {
-                                bottomSheetArrowImageView.setImageResource(R.drawable.icn_chevron_up);
-                            }
-                            break;
-                            case BottomSheetBehavior.STATE_DRAGGING:
                                 break;
                             case BottomSheetBehavior.STATE_SETTLING:
+                            case BottomSheetBehavior.STATE_COLLAPSED:
                                 bottomSheetArrowImageView.setImageResource(R.drawable.icn_chevron_up);
                                 break;
                         }
@@ -171,9 +167,11 @@ public abstract class CameraActivity extends AppCompatActivity
                     }
                 });
 
-        frameValueTextView = findViewById(R.id.frame_info);
-        cropValueTextView = findViewById(R.id.crop_info);
-        inferenceTimeTextView = findViewById(R.id.inference_info);
+
+//        frameValueTextView = findViewById(R.id.frame_info);
+//        cropValueTextView = findViewById(R.id.crop_info);
+//        inferenceTimeTextView = findViewById(R.id.inference_info);
+        letterTextView = findViewById(R.id.letter);
 
         apiSwitchCompat.setOnCheckedChangeListener(this);
         modeSwitchCompat.setOnCheckedChangeListener(this);
@@ -467,9 +465,8 @@ public abstract class CameraActivity extends AppCompatActivity
             camera2Fragment.setCamera(cameraId);
             fragment = camera2Fragment;
         } else {
-            fragment =
-                    new LegacyCameraConnectionFragment(this, getLayoutId(),
-                            getDesiredPreviewFrameSize());
+            fragment = new LegacyCameraConnectionFragment(this, getLayoutId(),
+                    getDesiredPreviewFrameSize());
         }
         // Put camara on main screen
         getFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
@@ -526,12 +523,14 @@ public abstract class CameraActivity extends AppCompatActivity
     }
 
     private void turnOffTestMode() {
+        sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         Toast.makeText(this,
                 "Test mode off",
                 Toast.LENGTH_SHORT).show();
     }
 
     private void turnOnTestMode() {
+        sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         Toast.makeText(this,
                 "Test mode on",
                 Toast.LENGTH_SHORT).show();
@@ -559,17 +558,17 @@ public abstract class CameraActivity extends AppCompatActivity
         }
     }
 
-    protected void showFrameInfo(String frameInfo) {
-        frameValueTextView.setText(frameInfo);
-    }
-
-    protected void showCropInfo(String cropInfo) {
-        cropValueTextView.setText(cropInfo);
-    }
-
-    protected void showInference(String inferenceTime) {
-        inferenceTimeTextView.setText(inferenceTime);
-    }
+//    protected void showFrameInfo(String frameInfo) {
+//        frameValueTextView.setText(frameInfo);
+//    }
+//
+//    protected void showCropInfo(String cropInfo) {
+//        cropValueTextView.setText(cropInfo);
+//    }
+//
+//    protected void showInference(String inferenceTime) {
+//        inferenceTimeTextView.setText(inferenceTime);
+//    }
 
     protected abstract void processImage();
 

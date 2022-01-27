@@ -216,12 +216,12 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
             computingDetection = false;
 
-            runOnUiThread(
-                    () -> {
-                      showFrameInfo(previewWidth + "x" + previewHeight);
-                      showCropInfo(cropCopyBitmap.getWidth() + "x" + cropCopyBitmap.getHeight());
-                      showInference(lastProcessingTimeMs + "ms");
-                    });
+//            runOnUiThread(
+//                    () -> {
+//                      showFrameInfo(previewWidth + "x" + previewHeight);
+//                      showCropInfo(cropCopyBitmap.getWidth() + "x" + cropCopyBitmap.getHeight());
+//                      showInference(lastProcessingTimeMs + "ms");
+//                    });
           }
         });
   }
