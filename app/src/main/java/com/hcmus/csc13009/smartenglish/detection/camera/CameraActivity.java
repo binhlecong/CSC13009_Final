@@ -87,6 +87,7 @@ public abstract class CameraActivity extends AppCompatActivity
     private ImageView plusImageView, minusImageView;
     private SwitchCompat apiSwitchCompat;
     private TextView threadsTextView;
+    private SwitchCompat modeSwitchCompat;
 
     private static boolean allPermissionsGranted(final int[] grantResults) {
         for (int result : grantResults) {
@@ -122,6 +123,7 @@ public abstract class CameraActivity extends AppCompatActivity
         gestureLayout = findViewById(R.id.gesture_layout);
         sheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
         bottomSheetArrowImageView = findViewById(R.id.bottom_sheet_arrow);
+        modeSwitchCompat = findViewById(R.id.mode_switch);
 
         ViewTreeObserver vto = gestureLayout.getViewTreeObserver();
         vto.addOnGlobalLayoutListener(
@@ -174,10 +176,9 @@ public abstract class CameraActivity extends AppCompatActivity
         inferenceTimeTextView = findViewById(R.id.inference_info);
 
         apiSwitchCompat.setOnCheckedChangeListener(this);
-
+        modeSwitchCompat.setOnCheckedChangeListener(this);
         plusImageView.setOnClickListener(this);
         minusImageView.setOnClickListener(this);
-
         // Test TTS
         //TextToSpeechUtils.speak(getApplicationContext(), "heo");
     }
@@ -257,11 +258,11 @@ public abstract class CameraActivity extends AppCompatActivity
         }
         try {
             final Image image = reader.acquireLatestImage();
-
+            // Exit when there is no image
             if (image == null) {
                 return;
             }
-
+            // Exit if being busy processing other frame
             if (isProcessingFrame) {
                 image.close();
                 return;
@@ -442,6 +443,7 @@ public abstract class CameraActivity extends AppCompatActivity
         return null;
     }
 
+    // Replace item container with camera screen
     protected void setFragment() {
         String cameraId = chooseCamera();
 
@@ -469,7 +471,7 @@ public abstract class CameraActivity extends AppCompatActivity
                     new LegacyCameraConnectionFragment(this, getLayoutId(),
                             getDesiredPreviewFrameSize());
         }
-
+        // Put camara on main screen
         getFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
     }
 
@@ -509,13 +511,33 @@ public abstract class CameraActivity extends AppCompatActivity
         }
     }
 
+    // Handle switch toggle
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        setUseNNAPI(isChecked);
-        if (isChecked) apiSwitchCompat.setText("NNAPI");
-        else apiSwitchCompat.setText("TFLITE");
+        int id = buttonView.getId();
+        if (id == R.id.api_info_switch) {
+            setUseNNAPI(isChecked);
+            if (isChecked) apiSwitchCompat.setText("NNAPI");
+            else apiSwitchCompat.setText("TFLITE");
+        } else if (id == R.id.mode_switch) {
+            if (isChecked) turnOnTestMode();
+            else turnOffTestMode();
+        }
     }
 
+    private void turnOffTestMode() {
+        Toast.makeText(this,
+                "Test mode off",
+                Toast.LENGTH_SHORT).show();
+    }
+
+    private void turnOnTestMode() {
+        Toast.makeText(this,
+                "Test mode on",
+                Toast.LENGTH_SHORT).show();
+    }
+
+    // Handle thread count changes
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.plus) {
