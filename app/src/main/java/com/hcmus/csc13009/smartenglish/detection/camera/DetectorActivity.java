@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.hcmus.csc13009.smartenglish.detection;
+package com.hcmus.csc13009.smartenglish.detection.camera;
 
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -60,7 +60,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
   private static final String TF_OD_API_LABELS_FILE = "labelmap.txt";
   private static final DetectorMode MODE = DetectorMode.TF_OD_API;
   // Minimum detection confidence to track a detection.
-  private static final float MINIMUM_CONFIDENCE_TF_OD_API = 0.5f;
+  public static final float MINIMUM_CONFIDENCE_TF_OD_API = 0.5f;
   private static final boolean MAINTAIN_ASPECT = false;
   private static final Size DESIRED_PREVIEW_SIZE = new Size(640, 480);
   private static final boolean SAVE_PREVIEW_BITMAP = false;
@@ -138,15 +138,12 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
     trackingOverlay = (OverlayView) findViewById(R.id.tracking_overlay);
     trackingOverlay.addCallback(
-        new OverlayView.DrawCallback() {
-          @Override
-          public void drawCallback(final Canvas canvas) {
-            tracker.draw(canvas);
-            if (isDebug()) {
-              tracker.drawDebug(canvas);
-            }
-          }
-        });
+            canvas -> {
+              tracker.draw(canvas);
+              if (isDebug()) {
+                tracker.drawDebug(canvas);
+              }
+            });
 
     tracker.setFrameConfiguration(previewWidth, previewHeight, sensorOrientation);
   }
@@ -175,7 +172,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
     if (SAVE_PREVIEW_BITMAP) {
       ImageUtils.saveBitmap(croppedBitmap);
     }
-
+    // run detector
     runInBackground(
         new Runnable() {
           @Override
@@ -205,7 +202,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
             for (final Detector.Recognition result : results) {
               final RectF location = result.getLocation();
               if (location != null && result.getConfidence() >= minimumConfidence) {
-                canvas.drawRect(location, paint);
+//                canvas.drawRect(location, paint);
 
                 cropToFrameTransform.mapRect(location);
 
@@ -220,14 +217,11 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
             computingDetection = false;
 
             runOnUiThread(
-                new Runnable() {
-                  @Override
-                  public void run() {
-                    showFrameInfo(previewWidth + "x" + previewHeight);
-                    showCropInfo(cropCopyBitmap.getWidth() + "x" + cropCopyBitmap.getHeight());
-                    showInference(lastProcessingTimeMs + "ms");
-                  }
-                });
+                    () -> {
+                      showFrameInfo(previewWidth + "x" + previewHeight);
+                      showCropInfo(cropCopyBitmap.getWidth() + "x" + cropCopyBitmap.getHeight());
+                      showInference(lastProcessingTimeMs + "ms");
+                    });
           }
         });
   }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.hcmus.csc13009.smartenglish.detection;
+package com.hcmus.csc13009.smartenglish.detection.camera;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -53,6 +53,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.hcmus.csc13009.smartenglish.detection.R;
 import com.hcmus.csc13009.smartenglish.detection.customview.AutoFitTextureView;
 
 import java.util.ArrayList;

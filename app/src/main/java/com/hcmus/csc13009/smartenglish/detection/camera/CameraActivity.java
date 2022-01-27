@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.hcmus.csc13009.smartenglish.detection;
+package com.hcmus.csc13009.smartenglish.detection.camera;
 
 import android.Manifest;
 import android.app.Fragment;

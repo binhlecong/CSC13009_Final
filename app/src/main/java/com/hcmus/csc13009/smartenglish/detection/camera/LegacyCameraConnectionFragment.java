@@ -1,4 +1,4 @@
-package com.hcmus.csc13009.smartenglish.detection;
+package com.hcmus.csc13009.smartenglish.detection.camera;
 
 /*
  * Copyright 2019 The TensorFlow Authors. All Rights Reserved.
