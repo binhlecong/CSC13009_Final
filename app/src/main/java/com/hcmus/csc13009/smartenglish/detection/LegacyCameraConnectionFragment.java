@@ -1,4 +1,4 @@
-package com.hcmus.csc13009.examples.smartenglish;
+package com.hcmus.csc13009.smartenglish.detection;
 
 /*
  * Copyright 2019 The TensorFlow Authors. All Rights Reserved.
@@ -31,14 +31,14 @@ import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.hcmus.csc13009.examples.smartenglish.customview.AutoFitTextureView;
-import com.hcmus.csc13009.examples.smartenglish.env.ImageUtils;
-import com.hcmus.csc13009.examples.smartenglish.env.Logger;
+import com.hcmus.csc13009.smartenglish.detection.customview.AutoFitTextureView;
+import com.hcmus.csc13009.smartenglish.detection.env.ImageUtils;
+import com.hcmus.csc13009.smartenglish.detection.env.Logger;
 
 import java.io.IOException;
 import java.util.List;
 
-import com.hcmus.csc13009.examples.smartenglish.R;
+import com.hcmus.csc13009.smartenglish.detection.R;
 
 public class LegacyCameraConnectionFragment extends Fragment {
   private static final Logger LOGGER = new Logger();

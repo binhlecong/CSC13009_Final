@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.hcmus.csc13009.examples.smartenglish">
+    package="com.hcmus.csc13009.smartenglish.detection">
 
     <uses-sdk />
 
@@ -17,7 +17,7 @@
         android:theme="@style/AppTheme.ObjectDetection">
 
         <activity
-            android:name="com.hcmus.csc13009.examples.smartenglish.DetectorActivity"
+            android:name="com.hcmus.csc13009.smartenglish.detection.DetectorActivity"
             android:label="@string/tfe_od_app_name"
             android:screenOrientation="portrait">
             <intent-filter>

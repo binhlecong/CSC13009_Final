@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.hcmus.csc13009.examples.smartenglish.customview;
+package com.hcmus.csc13009.smartenglish.detection.customview;
 
 import android.content.Context;
 import android.util.AttributeSet;

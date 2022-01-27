@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.hcmus.csc13009.examples.smartenglish;
+package com.hcmus.csc13009.smartenglish.detection;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -53,7 +53,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.hcmus.csc13009.examples.smartenglish.customview.AutoFitTextureView;
+import com.hcmus.csc13009.smartenglish.detection.customview.AutoFitTextureView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -64,7 +64,7 @@ import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
 
-import com.hcmus.csc13009.examples.smartenglish.env.Logger;
+import com.hcmus.csc13009.smartenglish.detection.env.Logger;
 
 @SuppressLint("ValidFragment")
 public class CameraConnectionFragment extends Fragment {

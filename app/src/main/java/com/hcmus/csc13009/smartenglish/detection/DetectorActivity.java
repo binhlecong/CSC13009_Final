@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.hcmus.csc13009.examples.smartenglish;
+package com.hcmus.csc13009.smartenglish.detection;
 
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -31,20 +31,20 @@ import android.util.Size;
 import android.util.TypedValue;
 import android.widget.Toast;
 
-import com.hcmus.csc13009.examples.smartenglish.customview.OverlayView;
+import com.hcmus.csc13009.smartenglish.detection.customview.OverlayView;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.hcmus.csc13009.examples.smartenglish.R;
+import com.hcmus.csc13009.smartenglish.detection.R;
 
-import com.hcmus.csc13009.examples.smartenglish.env.BorderedText;
-import com.hcmus.csc13009.examples.smartenglish.env.ImageUtils;
-import com.hcmus.csc13009.examples.smartenglish.env.Logger;
-import com.hcmus.csc13009.examples.smartenglish.tflite.Detector;
-import com.hcmus.csc13009.examples.smartenglish.tflite.TFLiteObjectDetectionAPIModel;
-import com.hcmus.csc13009.examples.smartenglish.tracking.MultiBoxTracker;
+import com.hcmus.csc13009.smartenglish.detection.env.BorderedText;
+import com.hcmus.csc13009.smartenglish.detection.env.ImageUtils;
+import com.hcmus.csc13009.smartenglish.detection.env.Logger;
+import com.hcmus.csc13009.smartenglish.detection.tflite.Detector;
+import com.hcmus.csc13009.smartenglish.detection.tflite.TFLiteObjectDetectionAPIModel;
+import com.hcmus.csc13009.smartenglish.detection.tracking.MultiBoxTracker;
 
 /**
  * An activity that uses a TensorFlowMultiBoxDetector and ObjectTracker to detect and then track

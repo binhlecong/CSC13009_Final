@@ -13,7 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 
-package com.hcmus.csc13009.examples.smartenglish.tflite;
+package com.hcmus.csc13009.smartenglish.detection.tflite;
 
 import android.content.Context;
 import android.graphics.Bitmap;

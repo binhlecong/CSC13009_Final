@@ -13,7 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 
-package com.hcmus.csc13009.examples.smartenglish.env;
+package com.hcmus.csc13009.smartenglish.detection.env;
 
 import android.graphics.Bitmap;
 import android.text.TextUtils;

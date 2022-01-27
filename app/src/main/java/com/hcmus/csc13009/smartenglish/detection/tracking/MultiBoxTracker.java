@@ -13,7 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 
-package com.hcmus.csc13009.examples.smartenglish.tracking;
+package com.hcmus.csc13009.smartenglish.detection.tracking;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -30,10 +30,10 @@ import android.util.TypedValue;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import com.hcmus.csc13009.examples.smartenglish.env.BorderedText;
-import com.hcmus.csc13009.examples.smartenglish.env.ImageUtils;
-import com.hcmus.csc13009.examples.smartenglish.env.Logger;
-import com.hcmus.csc13009.examples.smartenglish.tflite.Detector.Recognition;
+import com.hcmus.csc13009.smartenglish.detection.env.BorderedText;
+import com.hcmus.csc13009.smartenglish.detection.env.ImageUtils;
+import com.hcmus.csc13009.smartenglish.detection.env.Logger;
+import com.hcmus.csc13009.smartenglish.detection.tflite.Detector.Recognition;
 
 /** A tracker that handles non-max suppression and matches existing objects to new detections. */
 public class MultiBoxTracker {

@@ -13,7 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 
-package com.hcmus.csc13009.examples.smartenglish.customview;
+package com.hcmus.csc13009.smartenglish.detection.customview;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -22,7 +22,7 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
 
-import com.hcmus.csc13009.examples.smartenglish.tflite.Detector;
+import com.hcmus.csc13009.smartenglish.detection.tflite.Detector;
 
 import java.util.List;
 

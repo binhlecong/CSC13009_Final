@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.hcmus.csc13009.examples.smartenglish;
+package com.hcmus.csc13009.smartenglish.detection;
 
 import static com.google.common.truth.Truth.assertThat;
 import static java.lang.Math.abs;
@@ -39,10 +39,10 @@ import java.util.Scanner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import com.hcmus.csc13009.examples.smartenglish.env.ImageUtils;
-import com.hcmus.csc13009.examples.smartenglish.tflite.Detector;
-import com.hcmus.csc13009.examples.smartenglish.tflite.Detector.Recognition;
-import com.hcmus.csc13009.examples.smartenglish.tflite.TFLiteObjectDetectionAPIModel;
+import com.hcmus.csc13009.smartenglish.detection.env.ImageUtils;
+import com.hcmus.csc13009.smartenglish.detection.tflite.Detector;
+import com.hcmus.csc13009.smartenglish.detection.tflite.Detector.Recognition;
+import com.hcmus.csc13009.smartenglish.detection.tflite.TFLiteObjectDetectionAPIModel;
 
 /** Golden test for Object Detection Reference app. */
 @RunWith(AndroidJUnit4.class)

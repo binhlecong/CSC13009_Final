@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.hcmus.csc13009.examples.smartenglish;
+package com.hcmus.csc13009.smartenglish.detection;
 
 import android.Manifest;
 import android.app.Fragment;
@@ -51,10 +51,10 @@ import androidx.annotation.NonNull;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import java.nio.ByteBuffer;
 
-import com.hcmus.csc13009.examples.smartenglish.R;
+import com.hcmus.csc13009.smartenglish.detection.R;
 
-import com.hcmus.csc13009.examples.smartenglish.env.ImageUtils;
-import com.hcmus.csc13009.examples.smartenglish.env.Logger;
+import com.hcmus.csc13009.smartenglish.detection.env.ImageUtils;
+import com.hcmus.csc13009.smartenglish.detection.env.Logger;
 
 public abstract class CameraActivity extends AppCompatActivity
     implements OnImageAvailableListener,
