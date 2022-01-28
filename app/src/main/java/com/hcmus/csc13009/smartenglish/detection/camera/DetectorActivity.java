@@ -215,9 +215,9 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
             computingDetection = false;
 
             runOnUiThread(() -> {
-                if (activityMode == TEST_MODE && !isRunningQuestion) {
+                if (activityMode == TEST_MODE) {
+                    if (isRunningQuestion) return;
                     // Choose question type in test mode
-
                     questionHandler = new QuestionHandler(tracker.getTrackedObjects());
 
                     questionHandler.generateQuestion();
@@ -225,6 +225,9 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                     // Display the question
                     showRequest(questionHandler.getQuestion().getRequest());
                     showTarget(questionHandler.getQuestion().getTarget());
+                } else {
+                    isRunningQuestion = false;
+                    showRequest("Hãy tìm đồ vật và chạm vào nó");
                 }
             });
         });
