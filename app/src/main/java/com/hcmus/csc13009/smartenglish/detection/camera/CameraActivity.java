@@ -63,14 +63,15 @@ public abstract class CameraActivity extends AppCompatActivity
         Camera.PreviewCallback,
         CompoundButton.OnCheckedChangeListener,
         View.OnClickListener {
+    protected static final int LEARN_MODE = 0;
+    protected static final int TEST_MODE = 1;
     private static final Logger LOGGER = new Logger();
-
     private static final int PERMISSIONS_REQUEST = 1;
-
     private static final String PERMISSION_CAMERA = Manifest.permission.CAMERA;
     protected int previewWidth = 0;
     protected int previewHeight = 0;
     protected ImageView bottomSheetArrowImageView;
+    protected int activityMode = LEARN_MODE;
     private boolean debug = false;
     private Handler handler;
     private HandlerThread handlerThread;
@@ -169,11 +170,6 @@ public abstract class CameraActivity extends AppCompatActivity
             }
         });
 
-
-//        frameValueTextView = findViewById(R.id.frame_info);
-//        cropValueTextView = findViewById(R.id.crop_info);
-//        inferenceTimeTextView = findViewById(R.id.inference_info);
-
         apiSwitchCompat.setOnCheckedChangeListener(this);
         modeSwitchCompat.setOnCheckedChangeListener(this);
         plusImageView.setOnClickListener(this);
@@ -249,18 +245,16 @@ public abstract class CameraActivity extends AppCompatActivity
     @Override
     public void onImageAvailable(final ImageReader reader) {
         // We need wait until we have some size from onPreviewSizeChosen
-        if (previewWidth == 0 || previewHeight == 0) {
+        if (previewWidth == 0 || previewHeight == 0)
             return;
-        }
-        if (rgbBytes == null) {
+        if (rgbBytes == null)
             rgbBytes = new int[previewWidth * previewHeight];
-        }
+
         try {
             final Image image = reader.acquireLatestImage();
             // Exit when there is no image
-            if (image == null) {
+            if (image == null)
                 return;
-            }
             // Exit if being busy processing other frame
             if (isProcessingFrame) {
                 image.close();
@@ -387,8 +381,8 @@ public abstract class CameraActivity extends AppCompatActivity
     }
 
     // Returns true if the device supports the required hardware level, or better.
-    private boolean isHardwareLevelSupported(
-            CameraCharacteristics characteristics, int requiredLevel) {
+    private boolean isHardwareLevelSupported(CameraCharacteristics characteristics,
+                                             int requiredLevel) {
         int deviceLevel = characteristics.get(CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL);
         if (deviceLevel == CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL_LEGACY) {
             return requiredLevel == deviceLevel;
@@ -406,16 +400,14 @@ public abstract class CameraActivity extends AppCompatActivity
 
                 // We don't use a front facing camera in this sample.
                 final Integer facing = characteristics.get(CameraCharacteristics.LENS_FACING);
-                if (facing != null && facing == CameraCharacteristics.LENS_FACING_FRONT) {
+                if (facing != null && facing == CameraCharacteristics.LENS_FACING_FRONT)
                     continue;
-                }
 
                 final StreamConfigurationMap map =
                         characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
 
-                if (map == null) {
+                if (map == null)
                     continue;
-                }
 
                 // Fallback to camera1 API for internal cameras that don't have full support.
                 // This should help with legacy situations where using the camera2 API causes
@@ -519,21 +511,15 @@ public abstract class CameraActivity extends AppCompatActivity
     private void turnOffTestMode() {
         BoxTrackerUtils.setMode(BoxTrackerUtils.CameraMode.LEARN);
         requestTextView.setText("Hãy tìm đồ vật và chạm vào nó");
-        // Todo: set text to object that the user just tap
         sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-//        Toast.makeText(this,
-//                "Hãy tìm đồ vật và chạm vào nó",
-//                Toast.LENGTH_SHORT).show();
+        activityMode = LEARN_MODE;
     }
 
     private void turnOnTestMode() {
         BoxTrackerUtils.setMode(BoxTrackerUtils.CameraMode.TEST);
         requestTextView.setText("Câu hỏi");
-        // Todo: set text to the target of the question EX: A, B, C, dog, apple
         sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-//        Toast.makeText(this,
-//                "Sẵn sàng kiểm tra chưa nè",
-//                Toast.LENGTH_SHORT).show();
+        activityMode = TEST_MODE;
     }
 
     // Handle thread count changes
@@ -561,14 +547,6 @@ public abstract class CameraActivity extends AppCompatActivity
     protected void showObjectLabel(String label) {
         targetTextView.setText(label);
     }
-//
-//    protected void showCropInfo(String cropInfo) {
-//        cropValueTextView.setText(cropInfo);
-//    }
-//
-//    protected void showInference(String inferenceTime) {
-//        inferenceTimeTextView.setText(inferenceTime);
-//    }
 
     protected abstract void processImage();
 
