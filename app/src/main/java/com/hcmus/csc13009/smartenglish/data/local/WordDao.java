@@ -1,5 +1,6 @@
 package com.hcmus.csc13009.smartenglish.data.local;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -25,4 +26,9 @@ public interface WordDao {
 
     @Query("SELECT * FROM word_table ORDER BY correct/total DESC")
     LiveData<List<Word>> getAllWords();
+
+    @Query("SELECT * FROM word_table WHERE word LIKE :label")
+    List<Word> getWord(@NonNull String label);
+
+
 }

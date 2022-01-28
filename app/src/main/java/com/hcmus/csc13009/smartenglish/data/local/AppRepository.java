@@ -1,7 +1,9 @@
 package com.hcmus.csc13009.smartenglish.data.local;
 
 import android.app.Application;
+import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
 import com.hcmus.csc13009.smartenglish.data.model.Word;
@@ -25,7 +27,7 @@ public class AppRepository {
         allWords = wordDao.getAllWords();
     }
 
-    AppRepository getInstance(Application app) {
+    public static AppRepository getInstance(Application app) {
         if (INSTANCE == null) {
             INSTANCE = new AppRepository(app);
         }
@@ -54,4 +56,26 @@ public class AppRepository {
         });
     }
 
+    public void updateScore(@NonNull String label, int score) {
+        AppRoomDatabase.databaseWriteExecutor.execute(() -> {
+            List<Word> words = wordDao.getWord(label);
+            Word word;
+            int correct = 0;
+            int wrong = -score;
+            if (score > 0) {
+                correct = score;
+                wrong = 0;
+            }
+            if (words == null || words.isEmpty()) {
+                word = new Word(label, correct, correct + wrong);
+                wordDao.insertWord(word);
+            } else {
+                word = words.get(0);
+                word.setCorrect(word.getCorrect() + correct);
+                word.setTotal(word.getTotal() + correct + wrong);
+                wordDao.updateWord(word);
+            }
+//            Log.i("@@@ word", word.getTotal() + " " + word.getCorrect());
+        });
+    }
 }

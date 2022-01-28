@@ -27,12 +27,13 @@ import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.media.ImageReader.OnImageAvailableListener;
 import android.os.SystemClock;
-import android.util.Log;
 import android.util.Pair;
 import android.util.Size;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.widget.Toast;
+
+import androidx.lifecycle.ViewModelProvider;
 
 import com.hcmus.csc13009.smartenglish.detection.R;
 import com.hcmus.csc13009.smartenglish.detection.customview.OverlayView;
@@ -55,7 +56,7 @@ import java.util.List;
  */
 public class DetectorActivity extends CameraActivity implements OnImageAvailableListener {
     // Minimum detection confidence to track a detection.
-    public static final float MINIMUM_CONFIDENCE_TF_OD_API = 0.5f;
+    public static final float MINIMUM_CONFIDENCE_TF_OD_API = 0.6f;
     private static final Logger LOGGER = new Logger();
     // Configuration values for the prepackaged SSD model.
     private static final int TF_OD_API_INPUT_SIZE = 300;
@@ -87,6 +88,8 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
     private QuestionHandler questionHandler;
     private boolean isRunningQuestion = false;
+
+    private DetectorViewModel viewModel = null;
 
     @Override
     public void onPreviewSizeChosen(final Size size, final int rotation) {
@@ -149,6 +152,8 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
         trackingOverlay.setOnTouchListener((view, motionEvent) -> onOverlayViewTouchEvent(motionEvent));
 
         tracker.setFrameConfiguration(previewWidth, previewHeight, sensorOrientation);
+
+        viewModel = new ViewModelProvider(this).get(DetectorViewModel.class);
     }
 
     @Override
@@ -268,18 +273,22 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
         float x = event.getX();
         float y = event.getY();
-        Log.i("@@@ touch at: ", x + " " + y + " " + previewHeight + " " + previewWidth);
-        final List<Pair<String, RectF>> results = tracker.getTrackedObjects();
-        for (Pair<String, RectF> result : results) {
-            if (result.second.contains(x, y)) {
-                if (activityMode == LEARN_MODE) {
-                    showTarget(result.first);
-                    TextToSpeechUtils.speak(getApplicationContext(), result.first);
+        Pair<String, RectF> result = viewModel.getObjectAtPosition(x, y, tracker);
+        if (result != null) {
+            if (activityMode == LEARN_MODE) {
+                showTarget(result.first);
+                TextToSpeechUtils.speak(getApplicationContext(), result.first);
+            } else {
+                boolean isCorrect = questionHandler.validate(result.first);
+                TextToSpeechUtils.speak(getApplicationContext(), isCorrect ? "Correct" : "Wrong");
+                if (isCorrect) {
+                    isRunningQuestion = false;
+                    viewModel.updateScore(result.first, 1);
                 } else {
-                    boolean isCorrect = questionHandler.validate(result.first);
-                    TextToSpeechUtils.speak(getApplicationContext(), isCorrect ? "True" : "False");
-                    if (isCorrect) isRunningQuestion = false;
-                    // TODO: add to statistic database
+                    if (viewModel.answerWrong()) {
+                        viewModel.updateScore(questionHandler.getQuestion().getTarget(), -1);
+                        isRunningQuestion = false;
+                    }
                 }
             }
         }
