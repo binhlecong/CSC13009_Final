@@ -88,6 +88,7 @@ public abstract class CameraActivity extends AppCompatActivity
     private ImageView plusImageView, minusImageView;
     private SwitchCompat apiSwitchCompat;
     private TextView threadsTextView;
+    private TextView requestTextView;
     private SwitchCompat modeSwitchCompat;
 
     private static boolean allPermissionsGranted(final int[] grantResults) {
@@ -124,49 +125,48 @@ public abstract class CameraActivity extends AppCompatActivity
         gestureLayout = findViewById(R.id.gesture_layout);
         bottomSheetArrowImageView = findViewById(R.id.bottom_sheet_arrow);
         modeSwitchCompat = findViewById(R.id.mode_switch);
+        requestTextView = findViewById(R.id.request);
         sheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
 
         ViewTreeObserver vto = gestureLayout.getViewTreeObserver();
-        vto.addOnGlobalLayoutListener(
-                new ViewTreeObserver.OnGlobalLayoutListener() {
-                    @Override
-                    public void onGlobalLayout() {
-                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-                            gestureLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                        } else {
-                            gestureLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                        }
-                        //                int width = bottomSheetLayout.getMeasuredWidth();
-                        int height = gestureLayout.getMeasuredHeight();
+        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                    gestureLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                } else {
+                    gestureLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                }
+                //                int width = bottomSheetLayout.getMeasuredWidth();
+                int height = gestureLayout.getMeasuredHeight();
 
-                        sheetBehavior.setPeekHeight(height);
-                    }
-                });
+                sheetBehavior.setPeekHeight(height);
+            }
+        });
 
         sheetBehavior.setHideable(false);
 
-        sheetBehavior.setBottomSheetCallback(
-                new BottomSheetBehavior.BottomSheetCallback() {
-                    @Override
-                    public void onStateChanged(@NonNull View bottomSheet, int newState) {
-                        switch (newState) {
-                            case BottomSheetBehavior.STATE_DRAGGING:
-                            case BottomSheetBehavior.STATE_HIDDEN:
-                                break;
-                            case BottomSheetBehavior.STATE_EXPANDED:
-                                bottomSheetArrowImageView.setImageResource(R.drawable.icn_chevron_down);
-                                break;
-                            case BottomSheetBehavior.STATE_SETTLING:
-                            case BottomSheetBehavior.STATE_COLLAPSED:
-                                bottomSheetArrowImageView.setImageResource(R.drawable.icn_chevron_up);
-                                break;
-                        }
-                    }
+        sheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                switch (newState) {
+                    case BottomSheetBehavior.STATE_DRAGGING:
+                    case BottomSheetBehavior.STATE_HIDDEN:
+                        break;
+                    case BottomSheetBehavior.STATE_EXPANDED:
+                        bottomSheetArrowImageView.setImageResource(R.drawable.icn_chevron_down);
+                        break;
+                    case BottomSheetBehavior.STATE_SETTLING:
+                    case BottomSheetBehavior.STATE_COLLAPSED:
+                        bottomSheetArrowImageView.setImageResource(R.drawable.icn_chevron_up);
+                        break;
+                }
+            }
 
-                    @Override
-                    public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-                    }
-                });
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+            }
+        });
 
 
 //        frameValueTextView = findViewById(R.id.frame_info);
@@ -179,7 +179,7 @@ public abstract class CameraActivity extends AppCompatActivity
         plusImageView.setOnClickListener(this);
         minusImageView.setOnClickListener(this);
         // Test TTS
-        //TextToSpeechUtils.speak(getApplicationContext(), "heo");
+        turnOffTestMode();
     }
 
     protected int[] getRgbBytes() {
@@ -278,16 +278,9 @@ public abstract class CameraActivity extends AppCompatActivity
                     new Runnable() {
                         @Override
                         public void run() {
-                            ImageUtils.convertYUV420ToARGB8888(
-                                    yuvBytes[0],
-                                    yuvBytes[1],
-                                    yuvBytes[2],
-                                    previewWidth,
-                                    previewHeight,
-                                    yRowStride,
-                                    uvRowStride,
-                                    uvPixelStride,
-                                    rgbBytes);
+                            ImageUtils.convertYUV420ToARGB8888(yuvBytes[0], yuvBytes[1],
+                                    yuvBytes[2], previewWidth, previewHeight, yRowStride,
+                                    uvRowStride, uvPixelStride, rgbBytes);
                         }
                     };
 
@@ -525,7 +518,8 @@ public abstract class CameraActivity extends AppCompatActivity
 
     private void turnOffTestMode() {
         BoxTrackerUtils.setMode(BoxTrackerUtils.CameraMode.LEARN);
-        sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        requestTextView.setText("Nhấn vào vật để tìm hiểu");
+        // Todo: set text to object that the user just tap
         Toast.makeText(this,
                 "Hãy tìm đồ vật và chạm vào nó",
                 Toast.LENGTH_SHORT).show();
@@ -533,6 +527,8 @@ public abstract class CameraActivity extends AppCompatActivity
 
     private void turnOnTestMode() {
         BoxTrackerUtils.setMode(BoxTrackerUtils.CameraMode.TEST);
+        requestTextView.setText("Câu hỏi");
+        // Todo: set text to the target of the question EX: A, B, C, dog, apple
         sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         Toast.makeText(this,
                 "Sẵn sàng kiểm tra chưa nè",
