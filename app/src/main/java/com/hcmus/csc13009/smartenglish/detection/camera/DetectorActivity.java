@@ -271,16 +271,16 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
         Log.i("@@@ touch at: ", x + " " + y + " " + previewHeight + " " + previewWidth);
         final List<Pair<String, RectF>> results = tracker.getTrackedObjects();
         for (Pair<String, RectF> result : results) {
-            if (activityMode == LEARN_MODE) {
-                if (result.second.contains(x, y)) {
+            if (result.second.contains(x, y)) {
+                if (activityMode == LEARN_MODE) {
                     showTarget(result.first);
                     TextToSpeechUtils.speak(getApplicationContext(), result.first);
+                } else {
+                    boolean isCorrect = questionHandler.validate(result.first);
+                    TextToSpeechUtils.speak(getApplicationContext(), isCorrect ? "True" : "False");
+                    if (isCorrect) isRunningQuestion = false;
+                    // TODO: add to statistic database
                 }
-            } else {
-                boolean isCorrect = questionHandler.validate(result.first);
-                TextToSpeechUtils.speak(getApplicationContext(), isCorrect ? "True" : "False");
-                if (isCorrect) isRunningQuestion = false;
-                // TODO: add to statistic database
             }
         }
         return true;
