@@ -52,6 +52,9 @@ apply from:'download_model.gradle'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar','*.aar'])
+    implementation 'androidx.room:room-common:2.4.1'
+    implementation 'androidx.room:room-runtime:2.4.1'
+    annotationProcessor 'androidx.room:room-compiler:2.4.1'
     interpreterImplementation project(":lib_interpreter")
     taskApiImplementation project(":lib_task_api")
     implementation 'androidx.appcompat:appcompat:1.3.0'

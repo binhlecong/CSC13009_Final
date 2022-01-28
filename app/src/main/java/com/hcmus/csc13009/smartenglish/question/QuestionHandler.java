@@ -1,12 +1,10 @@
 package com.hcmus.csc13009.smartenglish.question;
 
 import android.graphics.RectF;
+import android.util.Pair;
 
 import java.util.List;
 import java.util.Random;
-
-import android.util.Log;
-import android.util.Pair;
 
 public class QuestionHandler {
     private Question question;
@@ -42,7 +40,6 @@ public class QuestionHandler {
     }
 
     public boolean validate(String answer) {
-        Log.i("@@@ answer", answer);
         return this.question.validate(answer);
     }
 }
