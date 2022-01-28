@@ -112,10 +112,8 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
         } catch (final IOException e) {
             e.printStackTrace();
             LOGGER.e(e, "Exception initializing Detector!");
-            Toast toast =
-                    Toast.makeText(
-                            getApplicationContext(), "Detector could not be initialized",
-                            Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getApplicationContext(), "Detector could not be " +
+                    "initialized", Toast.LENGTH_SHORT);
             toast.show();
             finish();
         }
@@ -148,13 +146,6 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                     }
                 });
         trackingOverlay.setOnTouchListener((view, motionEvent) -> onOverlayViewTouchEvent(motionEvent));
-//    findViewById(R.id.container).setOnTouchListener((view, motionEvent) -> {
-//      float x = motionEvent.getX();
-//      float y = motionEvent.getY();
-//      Log.i("@@@ touch: ", x + " " + y);
-//      Log.i("@@@ touch raw: ", motionEvent.getRawX() + " " + motionEvent.getRawY());
-//      return true;
-//    });
 
         tracker.setFrameConfiguration(previewWidth, previewHeight, sensorOrientation);
     }
@@ -213,7 +204,6 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                 for (final Detector.Recognition result : results) {
                     final RectF location = result.getLocation();
                     if (location != null && result.getConfidence() >= minimumConfidence) {
-//                canvas.drawRect(location, paint);
                         cropToFrameTransform.mapRect(location);
                         result.setLocation(location);
                         mappedRecognitions.add(result);
@@ -225,12 +215,9 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
                 computingDetection = false;
 
-//            runOnUiThread(
-//                    () -> {
-//                      showFrameInfo(previewWidth + "x" + previewHeight);
-//                      showCropInfo(cropCopyBitmap.getWidth() + "x" + cropCopyBitmap.getHeight());
-//                      showInference(lastProcessingTimeMs + "ms");
-//                    });
+                runOnUiThread(() -> {
+
+                });
             }
         });
     }
@@ -273,11 +260,15 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
         Log.i("@@@ touch at: ", x + " " + y + " " + previewHeight + " " + previewWidth);
         final List<Pair<String, RectF>> results = tracker.getTrackedObjects();
         for (Pair<String, RectF> result : results) {
-            if (result.second.contains(x, y)) {
-                // TODO: detect on touch speak or do something here
-                showObjectLabel(result.first);
-                TextToSpeechUtils.speak(getApplicationContext(), result.first);
+            if (activityMode == LEARN_MODE) {
+                if (result.second.contains(x, y)) {
+                    showObjectLabel(result.first);
+                    TextToSpeechUtils.speak(getApplicationContext(), result.first);
+                }
             }
+//            else {
+//                // TODO: handle answer from question type 1 and 2
+//            }
         }
         return true;
     }
