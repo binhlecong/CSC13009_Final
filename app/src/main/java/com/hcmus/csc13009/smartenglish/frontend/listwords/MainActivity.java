@@ -12,11 +12,14 @@ import androidx.fragment.app.Fragment;
 
 import com.gauravk.bubblenavigation.BubbleNavigationLinearView;
 import com.gauravk.bubblenavigation.listener.BubbleNavigationChangeListener;
+import com.hcmus.csc13009.smartenglish.detection.databinding.ActivityMainBinding;
 import com.hcmus.csc13009.smartenglish.detection.R;
 import com.hcmus.csc13009.smartenglish.frontend.listwords.fragment.ListWordsCorrectFragment;
 import com.hcmus.csc13009.smartenglish.frontend.listwords.fragment.ListWordsIncorrectFragment;
 
 public class MainActivity extends AppCompatActivity {
+
+    protected ActivityMainBinding binding;
 
     Fragment fragment = null;
     @Override

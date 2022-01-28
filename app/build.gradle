@@ -40,6 +40,9 @@ android {
            dimension "tfliteInference"
        }
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 // import DownloadModels task
@@ -67,4 +70,5 @@ dependencies {
     androidTestImplementation 'androidx.test:rules:1.4.0'
 
     implementation 'com.gauravk.bubblenavigation:bubblenavigation:1.0.7'
+    implementation 'com.leinardi.android:speed-dial:3.2.0'
 }
