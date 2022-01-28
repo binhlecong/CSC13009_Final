@@ -239,7 +239,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
   // Which detection model to use: by default uses Tensorflow Object Detection API frozen
   // checkpoints.
   private enum DetectorMode {
-    TF_OD_API;
+    TF_OD_API
   }
 
   @Override
@@ -251,9 +251,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
           } catch (UnsupportedOperationException e) {
             LOGGER.e(e, "Failed to set \"Use NNAPI\".");
             runOnUiThread(
-                () -> {
-                  Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-                });
+                () -> Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show());
           }
         });
   }

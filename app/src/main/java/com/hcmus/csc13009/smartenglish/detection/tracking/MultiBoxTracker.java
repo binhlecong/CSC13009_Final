@@ -29,6 +29,7 @@ import android.util.Pair;
 import android.util.TypedValue;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Queue;
 import com.hcmus.csc13009.smartenglish.detection.env.BorderedText;
 import com.hcmus.csc13009.smartenglish.detection.env.ImageUtils;
@@ -37,6 +38,9 @@ import com.hcmus.csc13009.smartenglish.detection.tflite.Detector.Recognition;
 
 /** A tracker that handles non-max suppression and matches existing objects to new detections. */
 public class MultiBoxTracker {
+  // setting for test/learn mode
+  public static TrackerOption trackOption = TrackerOption.FULL;
+
   private static final float TEXT_SIZE_DIP = 18;
   private static final float MIN_SIZE = 16.0f;
   private static final int[] COLORS = {
@@ -56,10 +60,10 @@ public class MultiBoxTracker {
     Color.parseColor("#AA33AA"),
     Color.parseColor("#0D0068")
   };
-  final List<Pair<Float, RectF>> screenRects = new LinkedList<Pair<Float, RectF>>();
+  final List<Pair<Float, RectF>> screenRects = new LinkedList<>();
   private final Logger logger = new Logger();
-  private final Queue<Integer> availableColors = new LinkedList<Integer>();
-  private final List<TrackedRecognition> trackedObjects = new LinkedList<TrackedRecognition>();
+  private final Queue<Integer> availableColors = new LinkedList<>();
+  private final List<TrackedRecognition> trackedObjects = new LinkedList<>();
   private final Paint boxPaint = new Paint();
   private final float textSizePx;
   private final BorderedText borderedText;
@@ -121,6 +125,8 @@ public class MultiBoxTracker {
   }
 
   public synchronized void draw(final Canvas canvas) {
+    if (trackOption == TrackerOption.NOTHING)
+      return;
     final boolean rotated = sensorOrientation % 180 == 90;
     final float multiplier =
         Math.min(
@@ -142,21 +148,32 @@ public class MultiBoxTracker {
       boxPaint.setColor(recognition.color);
 
       float cornerSize = Math.min(trackedPos.width(), trackedPos.height()) / 8.0f;
-      canvas.drawRoundRect(trackedPos, cornerSize, cornerSize, boxPaint);
+      if (trackOption == TrackerOption.BOX_ONLY || trackOption == TrackerOption.FULL) {
+        canvas.drawRoundRect(trackedPos, cornerSize, cornerSize, boxPaint);
+      }
 
-      String labelString =
-          !TextUtils.isEmpty(recognition.title)
-              ? String.format("%s %.2f", recognition.title, (100 * recognition.detectionConfidence))
-              : String.format("%.2f", (100 * recognition.detectionConfidence));
-      //            borderedText.drawText(canvas, trackedPos.left + cornerSize, trackedPos.top,
-      // labelString);
-      borderedText.drawText(
-          canvas, trackedPos.left + cornerSize, trackedPos.top, labelString + "%", boxPaint);
+      if (trackOption == TrackerOption.FULL || trackOption == TrackerOption.LABEL_ONLY) {
+        String labelString =
+                !TextUtils.isEmpty(recognition.title)
+                        ? String.format(Locale.getDefault(), "%s %.2f", recognition.title, (100 * recognition.detectionConfidence))
+                        : String.format(Locale.getDefault(),"%.2f", (100 * recognition.detectionConfidence));
+        //            borderedText.drawText(canvas, trackedPos.left + cornerSize, trackedPos.top,
+        // labelString);
+        if (trackOption == TrackerOption.FULL) {
+          borderedText.drawText(
+                  canvas, trackedPos.left + cornerSize, trackedPos.top, labelString + "%", boxPaint);
+        } else {
+          float midPosLeft = (trackedPos.left + trackedPos.right) / 2;
+          float midPosTop = (trackedPos.top + trackedPos.bottom) / 2;
+          borderedText.drawText(
+                  canvas, midPosLeft, midPosTop, recognition.title, boxPaint);
+        }
+      }
     }
   }
 
   private void processResults(final List<Recognition> results) {
-    final List<Pair<Float, Recognition>> rectsToTrack = new LinkedList<Pair<Float, Recognition>>();
+    final List<Pair<Float, Recognition>> rectsToTrack = new LinkedList<>();
 
     screenRects.clear();
     final Matrix rgbFrameToScreen = new Matrix(getFrameToCanvasMatrix());
@@ -173,14 +190,14 @@ public class MultiBoxTracker {
       logger.v(
           "Result! Frame: " + result.getLocation() + " mapped to screen:" + detectionScreenRect);
 
-      screenRects.add(new Pair<Float, RectF>(result.getConfidence(), detectionScreenRect));
+      screenRects.add(new Pair<>(result.getConfidence(), detectionScreenRect));
 
       if (detectionFrameRect.width() < MIN_SIZE || detectionFrameRect.height() < MIN_SIZE) {
         logger.w("Degenerate rectangle! " + detectionFrameRect);
         continue;
       }
 
-      rectsToTrack.add(new Pair<Float, Recognition>(result.getConfidence(), result));
+      rectsToTrack.add(new Pair<>(result.getConfidence(), result));
     }
 
     trackedObjects.clear();

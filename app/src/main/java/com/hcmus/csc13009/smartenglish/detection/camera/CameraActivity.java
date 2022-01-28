@@ -54,6 +54,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.hcmus.csc13009.smartenglish.detection.R;
 import com.hcmus.csc13009.smartenglish.detection.env.ImageUtils;
 import com.hcmus.csc13009.smartenglish.detection.env.Logger;
+import com.hcmus.csc13009.smartenglish.utils.BoxTrackerUtils;
 
 import java.nio.ByteBuffer;
 
@@ -523,16 +524,18 @@ public abstract class CameraActivity extends AppCompatActivity
     }
 
     private void turnOffTestMode() {
+        BoxTrackerUtils.setMode(BoxTrackerUtils.CameraMode.LEARN);
         sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         Toast.makeText(this,
-                "Test mode off",
+                "Hãy tìm đồ vật và chạm vào nó",
                 Toast.LENGTH_SHORT).show();
     }
 
     private void turnOnTestMode() {
+        BoxTrackerUtils.setMode(BoxTrackerUtils.CameraMode.TEST);
         sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         Toast.makeText(this,
-                "Test mode on",
+                "Sẵn sàng kiểm tra chưa nè",
                 Toast.LENGTH_SHORT).show();
     }
 
