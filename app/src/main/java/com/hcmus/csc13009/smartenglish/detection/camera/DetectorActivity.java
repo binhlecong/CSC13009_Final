@@ -42,15 +42,12 @@ import com.hcmus.csc13009.smartenglish.detection.env.Logger;
 import com.hcmus.csc13009.smartenglish.detection.tflite.Detector;
 import com.hcmus.csc13009.smartenglish.detection.tflite.TFLiteObjectDetectionAPIModel;
 import com.hcmus.csc13009.smartenglish.detection.tracking.MultiBoxTracker;
-import com.hcmus.csc13009.smartenglish.utils.Question;
-import com.hcmus.csc13009.smartenglish.utils.Question1;
-import com.hcmus.csc13009.smartenglish.utils.Question2;
+import com.hcmus.csc13009.smartenglish.question.QuestionHandler;
 import com.hcmus.csc13009.smartenglish.utils.TextToSpeechUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * An activity that uses a TensorFlowMultiBoxDetector and ObjectTracker to detect and then track
@@ -71,7 +68,6 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
     private static final boolean SAVE_PREVIEW_BITMAP = false;
     private static final float TEXT_SIZE_DIP = 10;
     OverlayView trackingOverlay;
-    private Integer sensorOrientation;
 
     private Detector detector;
 
@@ -89,9 +85,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
     private MultiBoxTracker tracker;
 
-    private BorderedText borderedText;
-
-    private Question currQuestion;
+    private QuestionHandler questionHandler;
     private boolean isRunningQuestion = false;
 
     @Override
@@ -100,7 +94,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                 TypedValue.applyDimension(
                         TypedValue.COMPLEX_UNIT_DIP, TEXT_SIZE_DIP,
                         getResources().getDisplayMetrics());
-        borderedText = new BorderedText(textSizePx);
+        BorderedText borderedText = new BorderedText(textSizePx);
         borderedText.setTypeface(Typeface.MONOSPACE);
 
         tracker = new MultiBoxTracker(this);
@@ -128,7 +122,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
         previewWidth = size.getWidth();
         previewHeight = size.getHeight();
 
-        sensorOrientation = rotation - getScreenOrientation();
+        int sensorOrientation = rotation - getScreenOrientation();
         LOGGER.i("Camera orientation relative to screen canvas: %d", sensorOrientation);
 
         LOGGER.i("Initializing at size %dx%d", previewWidth, previewHeight);
@@ -182,72 +176,57 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
             ImageUtils.saveBitmap(croppedBitmap);
         }
         // run detector
-        runInBackground(new Runnable() {
-            @Override
-            public void run() {
-                LOGGER.i("Running detection on image " + currTimestamp);
-                final long startTime = SystemClock.uptimeMillis();
-                final List<Detector.Recognition> results =
-                        detector.recognizeImage(croppedBitmap);
-                lastProcessingTimeMs = SystemClock.uptimeMillis() - startTime;
+        runInBackground(() -> {
+            LOGGER.i("Running detection on image " + currTimestamp);
+            final long startTime = SystemClock.uptimeMillis();
+            final List<Detector.Recognition> results =
+                    detector.recognizeImage(croppedBitmap);
+            lastProcessingTimeMs = SystemClock.uptimeMillis() - startTime;
 
-                cropCopyBitmap = Bitmap.createBitmap(croppedBitmap);
-                final Canvas canvas = new Canvas(cropCopyBitmap);
-                final Paint paint = new Paint();
-                paint.setColor(Color.RED);
-                paint.setStyle(Style.STROKE);
-                paint.setStrokeWidth(2.0f);
+            cropCopyBitmap = Bitmap.createBitmap(croppedBitmap);
+            final Canvas canvas1 = new Canvas(cropCopyBitmap);
+            final Paint paint = new Paint();
+            paint.setColor(Color.RED);
+            paint.setStyle(Style.STROKE);
+            paint.setStrokeWidth(2.0f);
 
-                float minimumConfidence = MINIMUM_CONFIDENCE_TF_OD_API;
-                switch (MODE) {
-                    case TF_OD_API:
-                        minimumConfidence = MINIMUM_CONFIDENCE_TF_OD_API;
-                        break;
-                }
-
-                final List<Detector.Recognition> mappedRecognitions =
-                        new ArrayList<Detector.Recognition>();
-
-                for (final Detector.Recognition result : results) {
-                    final RectF location = result.getLocation();
-                    if (location != null && result.getConfidence() >= minimumConfidence) {
-                        cropToFrameTransform.mapRect(location);
-                        result.setLocation(location);
-                        mappedRecognitions.add(result);
-                    }
-                }
-
-                tracker.trackResults(mappedRecognitions, currTimestamp);
-                trackingOverlay.postInvalidate();
-
-                computingDetection = false;
-
-                runOnUiThread(() -> {
-                    if (activityMode == TEST_MODE && !isRunningQuestion) {
-                        // Choose question type in test mode
-                        Random generator = new Random();
-                        int questionType = generator.nextInt(3) + 1;
-                        // Generate the question
-                        switch (questionType) {
-                            case 1:
-                                currQuestion = new Question1("l");
-                                break;
-                            case 2:
-                            case 3:
-                                currQuestion = new Question2("laptop");
-                                break;
-//                            case 3:
-//                                currQuestion=new Question(getString(R.string.question_type_3),
-//                                "Apple");
-//                                break;
-                        }
-                        isRunningQuestion = true;
-                        // Display the question
-                        showRequest(currQuestion.getRequest());
-                        showTarget(currQuestion.getTarget());
-                    }
-                });
+            float minimumConfidence = MINIMUM_CONFIDENCE_TF_OD_API;
+            switch (MODE) {
+                case TF_OD_API:
+                    minimumConfidence = MINIMUM_CONFIDENCE_TF_OD_API;
+                    break;
             }
+
+            final List<Detector.Recognition> mappedRecognitions =
+                    new ArrayList<>();
+
+            for (final Detector.Recognition result : results) {
+                final RectF location = result.getLocation();
+                if (location != null && result.getConfidence() >= minimumConfidence) {
+                    cropToFrameTransform.mapRect(location);
+                    result.setLocation(location);
+                    mappedRecognitions.add(result);
+                }
+            }
+
+            tracker.trackResults(mappedRecognitions, currTimestamp);
+            trackingOverlay.postInvalidate();
+
+            computingDetection = false;
+
+            runOnUiThread(() -> {
+                if (activityMode == TEST_MODE && !isRunningQuestion) {
+                    // Choose question type in test mode
+
+                    questionHandler = new QuestionHandler(tracker.getTrackedObjects());
+
+                    questionHandler.generateQuestion();
+                    isRunningQuestion = true;
+                    // Display the question
+                    showRequest(questionHandler.getQuestion().getRequest());
+                    showTarget(questionHandler.getQuestion().getTarget());
+                }
+            });
         });
     }
 
@@ -295,7 +274,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                     TextToSpeechUtils.speak(getApplicationContext(), result.first);
                 }
             } else {
-                boolean isCorrect = currQuestion.validate(result.first);
+                boolean isCorrect = questionHandler.validate(result.first);
                 TextToSpeechUtils.speak(getApplicationContext(), isCorrect ? "True" : "False");
                 if (isCorrect) isRunningQuestion = false;
                 // TODO: add to statistic database
