@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.gauravk.bubblenavigation.BubbleNavigationLinearView
+        android:id="@+id/navigationBar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/bg_rounded"
+        android:elevation="8dp"
+        android:padding="5dp"
+        android:layout_alignParentBottom="true">
+
+        <com.gauravk.bubblenavigation.BubbleToggleView
+            android:id="@+id/tabFilm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:bt_colorActive="#81c784"
+            app:bt_colorInactive="#78909c"
+            app:bt_icon="@drawable/ic_check_correct"
+            app:bt_shape="@drawable/tab_check_correct_color"
+            app:bt_title="Correct List"
+            app:bt_titlePadding="5dp"
+            app:bt_titleSize="10sp" />
+
+        <com.gauravk.bubblenavigation.BubbleToggleView
+            android:id="@+id/tabTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:bt_colorActive="#f06292"
+            app:bt_colorInactive="#78909c"
+            app:bt_icon="@drawable/ic_check_incorrect"
+            app:bt_shape="@drawable/tab_check_incorrect_color"
+            app:bt_title="Incorrect List"
+            app:bt_titlePadding="5dp"
+            app:bt_titleSize="10sp" />
+
+    </com.gauravk.bubblenavigation.BubbleNavigationLinearView>
+
+</RelativeLayout>
