@@ -42,11 +42,15 @@ import com.hcmus.csc13009.smartenglish.detection.env.Logger;
 import com.hcmus.csc13009.smartenglish.detection.tflite.Detector;
 import com.hcmus.csc13009.smartenglish.detection.tflite.TFLiteObjectDetectionAPIModel;
 import com.hcmus.csc13009.smartenglish.detection.tracking.MultiBoxTracker;
+import com.hcmus.csc13009.smartenglish.utils.Question;
+import com.hcmus.csc13009.smartenglish.utils.Question1;
+import com.hcmus.csc13009.smartenglish.utils.Question2;
 import com.hcmus.csc13009.smartenglish.utils.TextToSpeechUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * An activity that uses a TensorFlowMultiBoxDetector and ObjectTracker to detect and then track
@@ -86,6 +90,9 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
     private MultiBoxTracker tracker;
 
     private BorderedText borderedText;
+
+    private Question currQuestion;
+    private boolean isRunningQuestion = false;
 
     @Override
     public void onPreviewSizeChosen(final Size size, final int rotation) {
@@ -216,7 +223,29 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                 computingDetection = false;
 
                 runOnUiThread(() -> {
-
+                    if (activityMode == TEST_MODE && !isRunningQuestion) {
+                        // Choose question type in test mode
+                        Random generator = new Random();
+                        int questionType = generator.nextInt(3) + 1;
+                        // Generate the question
+                        switch (questionType) {
+                            case 1:
+                                currQuestion = new Question1("l");
+                                break;
+                            case 2:
+                            case 3:
+                                currQuestion = new Question2("laptop");
+                                break;
+//                            case 3:
+//                                currQuestion=new Question(getString(R.string.question_type_3),
+//                                "Apple");
+//                                break;
+                        }
+                        isRunningQuestion = true;
+                        // Display the question
+                        showRequest(currQuestion.getRequest());
+                        showTarget(currQuestion.getTarget());
+                    }
                 });
             }
         });
@@ -262,13 +291,15 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
         for (Pair<String, RectF> result : results) {
             if (activityMode == LEARN_MODE) {
                 if (result.second.contains(x, y)) {
-                    showObjectLabel(result.first);
+                    showTarget(result.first);
                     TextToSpeechUtils.speak(getApplicationContext(), result.first);
                 }
+            } else {
+                boolean isCorrect = currQuestion.validate(result.first);
+                TextToSpeechUtils.speak(getApplicationContext(), isCorrect ? "True" : "False");
+                if (isCorrect) isRunningQuestion = false;
+                // TODO: add to statistic database
             }
-//            else {
-//                // TODO: handle answer from question type 1 and 2
-//            }
         }
         return true;
     }

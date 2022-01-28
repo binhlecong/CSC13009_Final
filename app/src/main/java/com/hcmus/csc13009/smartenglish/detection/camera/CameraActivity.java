@@ -544,8 +544,12 @@ public abstract class CameraActivity extends AppCompatActivity
         }
     }
 
-    protected void showObjectLabel(String label) {
-        targetTextView.setText(label);
+    protected void showTarget(String target) {
+        targetTextView.setText(target);
+    }
+
+    protected void showRequest(String request) {
+        requestTextView.setText(request);
     }
 
     protected abstract void processImage();
