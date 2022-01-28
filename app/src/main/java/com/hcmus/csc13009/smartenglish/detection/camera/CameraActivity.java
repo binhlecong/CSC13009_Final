@@ -70,7 +70,6 @@ public abstract class CameraActivity extends AppCompatActivity
     private static final String PERMISSION_CAMERA = Manifest.permission.CAMERA;
     protected int previewWidth = 0;
     protected int previewHeight = 0;
-    protected TextView letterTextView;
     protected ImageView bottomSheetArrowImageView;
     private boolean debug = false;
     private Handler handler;
@@ -89,6 +88,7 @@ public abstract class CameraActivity extends AppCompatActivity
     private SwitchCompat apiSwitchCompat;
     private TextView threadsTextView;
     private TextView requestTextView;
+    private TextView targetTextView;
     private SwitchCompat modeSwitchCompat;
 
     private static boolean allPermissionsGranted(final int[] grantResults) {
@@ -126,6 +126,7 @@ public abstract class CameraActivity extends AppCompatActivity
         bottomSheetArrowImageView = findViewById(R.id.bottom_sheet_arrow);
         modeSwitchCompat = findViewById(R.id.mode_switch);
         requestTextView = findViewById(R.id.request);
+        targetTextView = findViewById(R.id.target);
         sheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
 
         ViewTreeObserver vto = gestureLayout.getViewTreeObserver();
@@ -172,13 +173,12 @@ public abstract class CameraActivity extends AppCompatActivity
 //        frameValueTextView = findViewById(R.id.frame_info);
 //        cropValueTextView = findViewById(R.id.crop_info);
 //        inferenceTimeTextView = findViewById(R.id.inference_info);
-        letterTextView = findViewById(R.id.letter);
 
         apiSwitchCompat.setOnCheckedChangeListener(this);
         modeSwitchCompat.setOnCheckedChangeListener(this);
         plusImageView.setOnClickListener(this);
         minusImageView.setOnClickListener(this);
-        // Test TTS
+        // Set explore mode as the default mode
         turnOffTestMode();
     }
 
@@ -518,11 +518,12 @@ public abstract class CameraActivity extends AppCompatActivity
 
     private void turnOffTestMode() {
         BoxTrackerUtils.setMode(BoxTrackerUtils.CameraMode.LEARN);
-        requestTextView.setText("Nhấn vào vật để tìm hiểu");
+        requestTextView.setText("Hãy tìm đồ vật và chạm vào nó");
         // Todo: set text to object that the user just tap
-        Toast.makeText(this,
-                "Hãy tìm đồ vật và chạm vào nó",
-                Toast.LENGTH_SHORT).show();
+        sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+//        Toast.makeText(this,
+//                "Hãy tìm đồ vật và chạm vào nó",
+//                Toast.LENGTH_SHORT).show();
     }
 
     private void turnOnTestMode() {
@@ -530,9 +531,9 @@ public abstract class CameraActivity extends AppCompatActivity
         requestTextView.setText("Câu hỏi");
         // Todo: set text to the target of the question EX: A, B, C, dog, apple
         sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-        Toast.makeText(this,
-                "Sẵn sàng kiểm tra chưa nè",
-                Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this,
+//                "Sẵn sàng kiểm tra chưa nè",
+//                Toast.LENGTH_SHORT).show();
     }
 
     // Handle thread count changes
@@ -557,9 +558,9 @@ public abstract class CameraActivity extends AppCompatActivity
         }
     }
 
-//    protected void showFrameInfo(String frameInfo) {
-//        frameValueTextView.setText(frameInfo);
-//    }
+    protected void showObjectLabel(String label) {
+        targetTextView.setText(label);
+    }
 //
 //    protected void showCropInfo(String cropInfo) {
 //        cropValueTextView.setText(cropInfo);

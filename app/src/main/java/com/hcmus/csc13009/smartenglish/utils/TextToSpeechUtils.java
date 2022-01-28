@@ -36,16 +36,16 @@ public class TextToSpeechUtils {
                 if (status == TextToSpeech.SUCCESS) {
                     speak.setLanguage(Locale.US);
                     int result = speak.speak(text, TextToSpeech.QUEUE_FLUSH, null);
-                    Toast.makeText(context,
-                            result == -1 ? "Speech failure" : text,
-                            Toast.LENGTH_SHORT).show();
+                    if (result == TextToSpeech.ERROR)
+                        Toast.makeText(context, "Speech failure", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, "Fail to start voice assistance", Toast.LENGTH_SHORT).show();
                 }
             });
         } else {
             int result = speak.speak(text, TextToSpeech.QUEUE_FLUSH, null);
-            Toast.makeText(context,
-                    result == -1 ? "Speech failure" : text,
-                    Toast.LENGTH_SHORT).show();
+            if (result == TextToSpeech.ERROR)
+                Toast.makeText(context, "Speech failure", Toast.LENGTH_SHORT).show();
         }
     }
 }
