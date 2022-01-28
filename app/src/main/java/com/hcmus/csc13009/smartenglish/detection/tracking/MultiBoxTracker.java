@@ -71,6 +71,8 @@ public class MultiBoxTracker {
   private int frameWidth;
   private int frameHeight;
   private int sensorOrientation;
+  // for features
+  private final List<Pair<String, RectF>> objectOnScreen = new LinkedList<>();
 
   public MultiBoxTracker(final Context context) {
     for (final int color : COLORS) {
@@ -88,6 +90,10 @@ public class MultiBoxTracker {
         TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP, TEXT_SIZE_DIP, context.getResources().getDisplayMetrics());
     borderedText = new BorderedText(textSizePx);
+  }
+
+  public List<Pair<String, RectF>> getTrackedObjects() {
+    return objectOnScreen;
   }
 
   public synchronized void setFrameConfiguration(
@@ -125,8 +131,6 @@ public class MultiBoxTracker {
   }
 
   public synchronized void draw(final Canvas canvas) {
-    if (trackOption == TrackerOption.NOTHING)
-      return;
     final boolean rotated = sensorOrientation % 180 == 90;
     final float multiplier =
         Math.min(
@@ -141,11 +145,16 @@ public class MultiBoxTracker {
             sensorOrientation,
             false);
     // TODO: label category here
+    objectOnScreen.clear();
     for (final TrackedRecognition recognition : trackedObjects) {
       final RectF trackedPos = new RectF(recognition.location);
 
       getFrameToCanvasMatrix().mapRect(trackedPos);
       boxPaint.setColor(recognition.color);
+
+      objectOnScreen.add(new Pair<>(recognition.title, trackedPos));
+      if (trackOption == TrackerOption.NOTHING)
+        continue;
 
       float cornerSize = Math.min(trackedPos.width(), trackedPos.height()) / 8.0f;
       if (trackOption == TrackerOption.BOX_ONLY || trackOption == TrackerOption.FULL) {
@@ -220,10 +229,10 @@ public class MultiBoxTracker {
     }
   }
 
-  private static class TrackedRecognition {
-    RectF location;
+  public static class TrackedRecognition {
+    public RectF location;
     float detectionConfidence;
     int color;
-    String title;
+    public String title;
   }
 }

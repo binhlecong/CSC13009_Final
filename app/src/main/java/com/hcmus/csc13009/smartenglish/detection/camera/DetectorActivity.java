@@ -27,24 +27,25 @@ import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.media.ImageReader.OnImageAvailableListener;
 import android.os.SystemClock;
+import android.util.Log;
+import android.util.Pair;
 import android.util.Size;
 import android.util.TypedValue;
+import android.view.MotionEvent;
 import android.widget.Toast;
 
-import com.hcmus.csc13009.smartenglish.detection.customview.OverlayView;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.hcmus.csc13009.smartenglish.detection.R;
-
+import com.hcmus.csc13009.smartenglish.detection.customview.OverlayView;
 import com.hcmus.csc13009.smartenglish.detection.env.BorderedText;
 import com.hcmus.csc13009.smartenglish.detection.env.ImageUtils;
 import com.hcmus.csc13009.smartenglish.detection.env.Logger;
 import com.hcmus.csc13009.smartenglish.detection.tflite.Detector;
 import com.hcmus.csc13009.smartenglish.detection.tflite.TFLiteObjectDetectionAPIModel;
 import com.hcmus.csc13009.smartenglish.detection.tracking.MultiBoxTracker;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * An activity that uses a TensorFlowMultiBoxDetector and ObjectTracker to detect and then track
@@ -144,6 +145,14 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                 tracker.drawDebug(canvas);
               }
             });
+    trackingOverlay.setOnTouchListener((view, motionEvent) -> onOverlayViewTouchEvent(motionEvent));
+//    findViewById(R.id.container).setOnTouchListener((view, motionEvent) -> {
+//      float x = motionEvent.getX();
+//      float y = motionEvent.getY();
+//      Log.i("@@@ touch: ", x + " " + y);
+//      Log.i("@@@ touch raw: ", motionEvent.getRawX() + " " + motionEvent.getRawY());
+//      return true;
+//    });
 
     tracker.setFrameConfiguration(previewWidth, previewHeight, sensorOrientation);
   }
@@ -203,9 +212,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
               final RectF location = result.getLocation();
               if (location != null && result.getConfidence() >= minimumConfidence) {
 //                canvas.drawRect(location, paint);
-
                 cropToFrameTransform.mapRect(location);
-
                 result.setLocation(location);
                 mappedRecognitions.add(result);
               }
@@ -259,5 +266,22 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
   @Override
   protected void setNumThreads(final int numThreads) {
     runInBackground(() -> detector.setNumThreads(numThreads));
+  }
+
+  public boolean onOverlayViewTouchEvent(MotionEvent event) {
+    int maskedAction = event.getActionMasked();
+    if (maskedAction != MotionEvent.ACTION_DOWN)
+      return false;
+
+    float x = event.getX();
+    float y = event.getY();
+    Log.i("@@@ touch at: ", x + " " + y + " " + previewHeight + " " + previewWidth);
+    final List<Pair<String, RectF>> results = tracker.getTrackedObjects();
+    for (Pair<String, RectF> result : results) {
+      if (result.second.contains(x, y)) {
+        // TODO: detect on touch speak or do something here
+      }
+    }
+    return true;
   }
 }
