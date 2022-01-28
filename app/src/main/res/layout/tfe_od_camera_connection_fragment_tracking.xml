@@ -27,4 +27,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <ImageView
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:visibility="gone"
+        android:src="@drawable/correct_cat"
+        android:id="@+id/correct_answer"
+        />
+
+    <ImageView
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:visibility="gone"
+        android:src="@drawable/wrong_cat"
+        android:id="@+id/wrong_answer"
+        />
+
 </FrameLayout>

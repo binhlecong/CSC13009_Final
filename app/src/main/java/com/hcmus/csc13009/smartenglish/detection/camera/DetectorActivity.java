@@ -31,6 +31,10 @@ import android.util.Pair;
 import android.util.Size;
 import android.util.TypedValue;
 import android.view.MotionEvent;
+import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -154,6 +158,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
         tracker.setFrameConfiguration(previewWidth, previewHeight, sensorOrientation);
 
         viewModel = new ViewModelProvider(this).get(DetectorViewModel.class);
+
     }
 
     @Override
@@ -284,11 +289,13 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                 if (isCorrect) {
                     isRunningQuestion = false;
                     viewModel.updateScore(result.first, 1);
+                    showAnimation(true, x, y);
                 } else {
                     if (viewModel.answerWrong()) {
                         viewModel.updateScore(questionHandler.getQuestion().getTarget(), -1);
                         isRunningQuestion = false;
                     }
+                    showAnimation(false, x, y);
                 }
             }
         }
@@ -299,5 +306,29 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
     // checkpoints.
     private enum DetectorMode {
         TF_OD_API
+    }
+
+    private void showAnimation(boolean isCorrect, float x, float y) {
+        if (isCorrect) {
+            ImageView imageView = findViewById(R.id.correct_answer);
+            imageView.setX(x);
+            imageView.setY(y);
+            imageView.setVisibility(View.VISIBLE);
+            Animation fadeAnim = new AlphaAnimation(1f, 0f);
+            fadeAnim.setDuration(1000);
+            fadeAnim.setFillAfter(true);
+            imageView.animate().translationY(y - 50).setDuration(1000);
+            imageView.startAnimation(fadeAnim);
+        } else {
+            ImageView imageView = findViewById(R.id.wrong_answer);
+            imageView.setX(x);
+            imageView.setY(y);
+            imageView.setVisibility(View.VISIBLE);
+            Animation fadeAnim = new AlphaAnimation(1f, 0f);
+            fadeAnim.setDuration(1000);
+            fadeAnim.setFillAfter(true);
+            imageView.animate().translationY(y + 50).setDuration(1000);
+            imageView.startAnimation(fadeAnim);
+        }
     }
 }

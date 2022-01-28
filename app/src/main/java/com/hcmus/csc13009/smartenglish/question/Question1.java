@@ -26,8 +26,10 @@ public class Question1 extends Question {
 
     @Override
     public void generateTarget(List<Pair<String, RectF>> trackedObject) {
-        if (trackedObject == null || trackedObject.isEmpty())
+        if (trackedObject == null || trackedObject.isEmpty()) {
             setTarget("l");
+            return;
+        }
         Random random = new Random();
         String title = trackedObject.get(random.nextInt(trackedObject.size())).first;
         setTarget(String.valueOf(title.charAt(0)));
