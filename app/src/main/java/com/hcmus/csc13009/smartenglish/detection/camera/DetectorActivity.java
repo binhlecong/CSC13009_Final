@@ -228,13 +228,14 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                 if (activityMode == TEST_MODE) {
                     if (isRunningQuestion) return;
                     // Choose question type in test mode
-                    questionHandler = new QuestionHandler(tracker.getTrackedObjects());
+                    if (questionHandler == null)
+                        questionHandler = new QuestionHandler(tracker.getTrackedObjects(), this);
 
                     questionHandler.generateQuestion();
                     isRunningQuestion = true;
                     // Display the question
-                    showRequest(questionHandler.getQuestion().getRequest());
-                    showTarget(questionHandler.getQuestion().getTarget());
+//                    showRequest(questionHandler.getQuestion().getRequest());
+//                    showTarget(questionHandler.getQuestion().getTarget());
                 } else {
                     isRunningQuestion = false;
                     showRequest("Hãy tìm đồ vật và chạm vào nó");
@@ -275,7 +276,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
         int maskedAction = event.getActionMasked();
         if (maskedAction != MotionEvent.ACTION_DOWN)
             return false;
-
+        showRespond("");
         float x = event.getX();
         float y = event.getY();
         Pair<String, RectF> result = viewModel.getObjectAtPosition(x, y, tracker);
@@ -298,6 +299,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                         isRunningQuestion = false;
                     }
                     showAnimation(false, x, y);
+                    showRespond("Sorry! That is a " + result.first);
                     // ToDO: handle score
                     setScore(getScore() - 1);
                 }

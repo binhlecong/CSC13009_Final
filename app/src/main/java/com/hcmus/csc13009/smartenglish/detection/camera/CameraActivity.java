@@ -89,8 +89,11 @@ public abstract class CameraActivity extends AppCompatActivity
     private ImageView plusImageView, minusImageView;
     private SwitchCompat apiSwitchCompat;
     private TextView threadsTextView;
+    // english question
     private TextView requestTextView;
     private TextView targetTextView;
+    private TextView respondTextView;
+    private ImageView helperImageView;
     private SwitchCompat modeSwitchCompat;
 
     private static boolean allPermissionsGranted(final int[] grantResults) {
@@ -129,6 +132,9 @@ public abstract class CameraActivity extends AppCompatActivity
         modeSwitchCompat = findViewById(R.id.mode_switch);
         requestTextView = findViewById(R.id.request);
         targetTextView = findViewById(R.id.target);
+        respondTextView = findViewById(R.id.respond_text);
+        helperImageView = findViewById(R.id.helper_image);
+
         sheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
 
         ViewTreeObserver vto = gestureLayout.getViewTreeObserver();
@@ -563,12 +569,25 @@ public abstract class CameraActivity extends AppCompatActivity
 //        }
     }
 
-    protected void showTarget(String target) {
+    public void showTarget(String target) {
         targetTextView.setText(target);
     }
 
-    protected void showRequest(String request) {
+    public void showRequest(String request) {
         requestTextView.setText(request);
+    }
+
+    public void showRespond(String respond) {
+        respondTextView.setText(respond);
+    }
+
+    public void showHelperImage(int resId) {
+        if (resId == -1) {
+            helperImageView.setVisibility(View.GONE);
+        } else {
+            helperImageView.setImageResource(resId);
+            helperImageView.setVisibility(View.VISIBLE);
+        }
     }
 
     protected abstract void processImage();

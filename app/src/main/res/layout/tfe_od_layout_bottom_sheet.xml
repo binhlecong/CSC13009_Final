@@ -136,11 +136,24 @@
 <!--        </LinearLayout>-->
 <!--    </RelativeLayout>-->
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textAlignment="center"
+        android:id="@+id/respond_text"
+        android:visibility="visible"
+        />
+
     <ImageView
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:src="@drawable/correct_cat"
+        android:visibility="gone"
+        android:id="@+id/helper_image"
         />
+
+
 
     <View
         android:layout_width="match_parent"
@@ -160,7 +173,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Smart English"
+            android:text="@string/app_name"
             android:textColor="@android:color/black" />
 
         <androidx.appcompat.widget.SwitchCompat

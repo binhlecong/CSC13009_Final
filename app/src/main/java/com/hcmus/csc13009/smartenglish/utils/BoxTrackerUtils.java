@@ -18,7 +18,7 @@ public class BoxTrackerUtils {
                 MultiBoxTracker.trackOption = TrackerOption.FULL;
                 break;
             case TEST:
-                MultiBoxTracker.trackOption = TrackerOption.NOTHING;
+                MultiBoxTracker.trackOption = TrackerOption.BOX_ONLY;
                 break;
         }
     }

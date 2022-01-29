@@ -3,6 +3,8 @@ package com.hcmus.csc13009.smartenglish.question;
 import android.graphics.RectF;
 import android.util.Pair;
 
+import com.hcmus.csc13009.smartenglish.detection.camera.DetectorActivity;
+
 import java.util.List;
 import java.util.Random;
 
@@ -10,9 +12,13 @@ public class QuestionHandler {
     private Question question;
     private final Random generator = new Random();
     private final List<Pair<String, RectF>> trackedObject;
+    // reference to activity
+    private final DetectorActivity activity;
 
-    public QuestionHandler(List<Pair<String, RectF>> trackedObject) {
+
+    public QuestionHandler(List<Pair<String, RectF>> trackedObject, DetectorActivity activity) {
         this.trackedObject = trackedObject;
+        this.activity = activity;
     }
     // factory generate random question
     public void generateQuestion() {
@@ -29,6 +35,7 @@ public class QuestionHandler {
                 break;
         }
         this.question.generateTarget(trackedObject);
+        this.question.render(activity);
     }
 
     public void setQuestion(Question q) {
