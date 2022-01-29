@@ -34,6 +34,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Trace;
+import android.util.Log;
 import android.util.Size;
 import android.view.Surface;
 import android.view.View;
@@ -530,7 +531,7 @@ public abstract class CameraActivity extends AppCompatActivity
         activityMode = LEARN_MODE;
         TextView txtView = (TextView) findViewById(R.id.test_score);
         if (txtView != null)
-            txtView.setVisibility(View.INVISIBLE);
+            txtView.setVisibility(View.GONE);
         setScore(0);
     }
 
@@ -542,6 +543,12 @@ public abstract class CameraActivity extends AppCompatActivity
         TextView txtView = (TextView) findViewById(R.id.test_score);
         if (txtView != null)
             txtView.setVisibility(View.VISIBLE);
+        setScore(0);
+    }
+
+    protected void setTestModeOn() {
+        modeSwitchCompat.setChecked(true);
+        modeSwitchCompat.postInvalidate();
     }
 
     protected int getScore() {
@@ -596,6 +603,10 @@ public abstract class CameraActivity extends AppCompatActivity
             helperImageView.setImageResource(resId);
             helperImageView.setVisibility(View.VISIBLE);
         }
+    }
+
+    public ImageView getHelperImageView() {
+        return helperImageView;
     }
 
     protected abstract void processImage();

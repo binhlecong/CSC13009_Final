@@ -26,7 +26,9 @@ import android.graphics.Paint.Style;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.media.ImageReader.OnImageAvailableListener;
+import android.os.Bundle;
 import android.os.SystemClock;
+import android.util.Log;
 import android.util.Pair;
 import android.util.Size;
 import android.util.TypedValue;
@@ -96,6 +98,17 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
     private DetectorViewModel viewModel = null;
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        viewModel = new ViewModelProvider(this).get(DetectorViewModel.class);
+        String mode = getIntent().getStringExtra("mode");
+        // TODO: fix bug show score
+        if (mode != null && mode.equals("exam")) {
+            setTestModeOn();
+        }
+    }
+
+    @Override
     public void onPreviewSizeChosen(final Size size, final int rotation) {
         final float textSizePx =
                 TypedValue.applyDimension(
@@ -145,7 +158,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
         cropToFrameTransform = new Matrix();
         frameToCropTransform.invert(cropToFrameTransform);
 
-        trackingOverlay = (OverlayView) findViewById(R.id.tracking_overlay);
+        trackingOverlay = findViewById(R.id.tracking_overlay);
         trackingOverlay.addCallback(
                 canvas -> {
                     tracker.draw(canvas);
@@ -157,7 +170,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
         tracker.setFrameConfiguration(previewWidth, previewHeight, sensorOrientation);
 
-        viewModel = new ViewModelProvider(this).get(DetectorViewModel.class);
+
 
     }
 
@@ -201,10 +214,8 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
             paint.setStrokeWidth(2.0f);
 
             float minimumConfidence = MINIMUM_CONFIDENCE_TF_OD_API;
-            switch (MODE) {
-                case TF_OD_API:
-                    minimumConfidence = MINIMUM_CONFIDENCE_TF_OD_API;
-                    break;
+            if (MODE == DetectorMode.TF_OD_API) {
+                minimumConfidence = MINIMUM_CONFIDENCE_TF_OD_API;
             }
 
             final List<Detector.Recognition> mappedRecognitions =
@@ -233,9 +244,6 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
                     questionHandler.generateQuestion();
                     isRunningQuestion = true;
-                    // Display the question
-//                    showRequest(questionHandler.getQuestion().getRequest());
-//                    showTarget(questionHandler.getQuestion().getTarget());
                 } else {
                     isRunningQuestion = false;
                     showRequest("Hãy tìm đồ vật và chạm vào nó");

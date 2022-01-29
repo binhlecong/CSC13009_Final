@@ -18,7 +18,7 @@ public class AppRepository {
     // all data
     private final LiveData<List<Word>> allWords;
 
-    private AppRepository(Application app) {
+    public AppRepository(Application app) {
 
         AppRoomDatabase db = AppRoomDatabase.getDatabase(app);
         // get all dao
@@ -36,6 +36,14 @@ public class AppRepository {
 
     public LiveData<List<Word>> getAllWords() {
         return allWords;
+    }
+
+    public LiveData<List<Word>> getAllCorrectWords() {
+        return wordDao.getAllCorrectWords();
+    }
+
+    public LiveData<List<Word>> getAllInCorrectWords() {
+        return wordDao.getAllInCorrectWords();
     }
 
     public void insertWord(Word word) {

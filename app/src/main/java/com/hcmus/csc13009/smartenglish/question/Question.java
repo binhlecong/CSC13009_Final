@@ -1,8 +1,5 @@
 package com.hcmus.csc13009.smartenglish.question;
 
-import android.graphics.RectF;
-import android.util.Pair;
-
 import com.hcmus.csc13009.smartenglish.detection.camera.DetectorActivity;
 
 import java.util.List;
@@ -31,6 +28,8 @@ public abstract class Question {
 
     public void setTarget(String target) {
         this.target = target;
+        if (target.equals("tv"))
+            this.target = "television";
     }
 
     abstract public boolean validate(String answer);
@@ -40,5 +39,6 @@ public abstract class Question {
     public void render(DetectorActivity activity) {
         activity.showTarget(getTarget());
         activity.showRequest(getRequest());
+        activity.showHelperImage(-1);
     }
 }

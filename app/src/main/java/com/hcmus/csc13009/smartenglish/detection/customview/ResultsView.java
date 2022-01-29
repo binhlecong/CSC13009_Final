@@ -20,5 +20,5 @@ import com.hcmus.csc13009.smartenglish.detection.tflite.Detector;
 import java.util.List;
 
 public interface ResultsView {
-  public void setResults(final List<Detector.Recognition> results);
+    public void setResults(final List<Detector.Recognition> results);
 }

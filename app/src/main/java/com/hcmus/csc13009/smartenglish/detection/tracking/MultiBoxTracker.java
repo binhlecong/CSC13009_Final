@@ -253,15 +253,17 @@ public class MultiBoxTracker {
 
     // helper for learn english feature
     private void updateStorageObject(String label, float confidence) {
-        if (storageObject.size() < MAX_STORAGE_OBJECT) {
-            if (!storageObject.containsKey(label)) {
+        if (storageObject.containsKey(label)) {
+            if (confidence <= 0) {
+                storageObject.remove(label);
+            } else if (storageObject.get(label) < confidence) {
                 storageObject.put(label, confidence);
-            } else {
-                if (storageObject.get(label) < confidence) {
-                    storageObject.put(label, confidence);
-                }
             }
-        } else {
+            return;
+        }
+        if (storageObject.size() < MAX_STORAGE_OBJECT) { // store if still has space
+            storageObject.put(label, confidence);
+        } else { // replace minimum confidence object
             Map.Entry<String, Float> lowestObject = Collections.min(storageObject.entrySet(),
                     (t1, t2) -> t1.getValue().compareTo(t2.getValue()));
             if (lowestObject.getValue() < confidence) {
