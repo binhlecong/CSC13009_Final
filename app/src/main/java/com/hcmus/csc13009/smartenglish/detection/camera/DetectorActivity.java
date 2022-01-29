@@ -290,22 +290,20 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                     isRunningQuestion = false;
                     viewModel.updateScore(result.first, 1);
                     showAnimation(true, x, y);
+                    // TODO: handle score
+                    setScore(getScore() + 1);
                 } else {
                     if (viewModel.answerWrong()) {
                         viewModel.updateScore(questionHandler.getQuestion().getTarget(), -1);
                         isRunningQuestion = false;
                     }
                     showAnimation(false, x, y);
+                    // ToDO: handle score
+                    setScore(getScore() - 1);
                 }
             }
         }
         return true;
-    }
-
-    // Which detection model to use: by default uses Tensorflow Object Detection API frozen
-    // checkpoints.
-    private enum DetectorMode {
-        TF_OD_API
     }
 
     private void showAnimation(boolean isCorrect, float x, float y) {
@@ -330,5 +328,11 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
             imageView.animate().translationY(y + 50).setDuration(1000);
             imageView.startAnimation(fadeAnim);
         }
+    }
+
+    // Which detection model to use: by default uses Tensorflow Object Detection API frozen
+    // checkpoints.
+    private enum DetectorMode {
+        TF_OD_API
     }
 }

@@ -28,19 +28,26 @@
         android:layout_height="match_parent" />
 
     <ImageView
+        android:id="@+id/correct_answer"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:visibility="gone"
         android:src="@drawable/correct_cat"
-        android:id="@+id/correct_answer"
-        />
+        android:visibility="gone" />
 
     <ImageView
+        android:id="@+id/wrong_answer"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:visibility="gone"
         android:src="@drawable/wrong_cat"
-        android:id="@+id/wrong_answer"
-        />
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/test_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Score: 0"
+        android:textColor="@color/tfe_color_primary"
+        android:textSize="14sp"
+        android:visibility="invisible" />
 
 </FrameLayout>

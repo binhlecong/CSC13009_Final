@@ -72,6 +72,7 @@ public abstract class CameraActivity extends AppCompatActivity
     protected int previewHeight = 0;
     protected ImageView bottomSheetArrowImageView;
     protected int activityMode = LEARN_MODE;
+    private int score = 0;
     private boolean debug = false;
     private Handler handler;
     private HandlerThread handlerThread;
@@ -513,6 +514,9 @@ public abstract class CameraActivity extends AppCompatActivity
         requestTextView.setText("Hãy tìm đồ vật và chạm vào nó");
         sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         activityMode = LEARN_MODE;
+        TextView txtView = (TextView) findViewById(R.id.test_score);
+        if (txtView != null)
+            txtView.setVisibility(View.INVISIBLE);
     }
 
     private void turnOnTestMode() {
@@ -520,6 +524,19 @@ public abstract class CameraActivity extends AppCompatActivity
         requestTextView.setText("Câu hỏi");
         sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         activityMode = TEST_MODE;
+        TextView txtView = (TextView) findViewById(R.id.test_score);
+        if (txtView != null)
+            txtView.setVisibility(View.VISIBLE);
+    }
+
+    protected int getScore() {
+        return score;
+    }
+
+    protected void setScore(int score) {
+        this.score = score;
+        TextView txtView = (TextView) findViewById(R.id.test_score);
+        txtView.setText(String.format("Score: %d", score));
     }
 
     // Handle thread count changes
