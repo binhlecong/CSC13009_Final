@@ -1,0 +1,33 @@
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="10dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/circular_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:indicatorSize="58dp"
+        app:trackThickness="6dp"
+        app:showAnimationBehavior="inward"
+        app:indicatorColor="@android:color/holo_blue_bright"
+        android:indeterminate="false"
+        android:progress="40"
+        android:max="100"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/progress_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/circular_progress_bar"
+        app:layout_constraintEnd_toEndOf="@+id/circular_progress_bar"
+        app:layout_constraintStart_toStartOf="@+id/circular_progress_bar"
+        app:layout_constraintTop_toTopOf="@+id/circular_progress_bar"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

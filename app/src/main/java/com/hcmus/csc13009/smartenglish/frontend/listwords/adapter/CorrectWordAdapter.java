@@ -1,7 +1,6 @@
 package com.hcmus.csc13009.smartenglish.frontend.listwords.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -35,6 +34,7 @@ public class CorrectWordAdapter extends RecyclerView.Adapter<CorrectWordAdapter.
         String correctPerTotal = word.getCorrect() + "/" +word.getTotal();
         binding.correctPerTotal.setText(correctPerTotal);
         holder.setImage(word.getWord());
+        holder.setProgressBar(1.0f * word.getCorrect() / word.getTotal());
     }
 
     @Override
@@ -53,7 +53,7 @@ public class CorrectWordAdapter extends RecyclerView.Adapter<CorrectWordAdapter.
 
     public static class CorrectWordViewHolder extends RecyclerView.ViewHolder{
 
-        private ItemListWordsCorrectBinding binding;
+        final private ItemListWordsCorrectBinding binding;
 
         public CorrectWordViewHolder(@NonNull ItemListWordsCorrectBinding itemBinding) {
             super(itemBinding.getRoot());
@@ -69,6 +69,11 @@ public class CorrectWordAdapter extends RecyclerView.Adapter<CorrectWordAdapter.
             if (resId == 0)
                 return;
             binding.imageCorrectListItem.setImageResource(resId);
+        }
+
+        public void setProgressBar(float value) {
+            binding.progressBar.circularProgressBar.setProgress(Math.round(value * 100));
+            binding.progressBar.progressText.setText(String.valueOf(Math.round(value * 100)));
         }
     }
 }

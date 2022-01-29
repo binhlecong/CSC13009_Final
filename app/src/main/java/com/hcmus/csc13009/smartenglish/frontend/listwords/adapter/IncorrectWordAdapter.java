@@ -35,6 +35,8 @@ public class IncorrectWordAdapter extends RecyclerView.Adapter<IncorrectWordAdap
         String correctPerTotal = word.getCorrect() + "/" +word.getTotal();
         binding.correctPerTotal.setText(correctPerTotal);
         holder.setImage(word.getWord());
+        holder.setProgressBar(1.0f * word.getCorrect() / word.getTotal());
+
     }
 
     @Override
@@ -69,6 +71,11 @@ public class IncorrectWordAdapter extends RecyclerView.Adapter<IncorrectWordAdap
             if (resId == 0)
                 return;
             binding.imageCorrectListItem.setImageResource(resId);
+        }
+
+        public void setProgressBar(float value) {
+            binding.progressBar.circularProgressBar.setProgress(Math.round(value * 100));
+            binding.progressBar.progressText.setText(String.valueOf(Math.round(value * 100)));
         }
     }
 }
