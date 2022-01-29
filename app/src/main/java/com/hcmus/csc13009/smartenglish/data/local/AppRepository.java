@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
 import com.hcmus.csc13009.smartenglish.data.model.Word;
+import com.hcmus.csc13009.smartenglish.utils.TimeUtils;
 
 import java.util.List;
 
@@ -75,12 +76,13 @@ public class AppRepository {
                 wrong = 0;
             }
             if (words == null || words.isEmpty()) {
-                word = new Word(label, correct, correct + wrong);
+                word = new Word(label, correct, correct + wrong, TimeUtils.getCurrentTimeMillis());
                 wordDao.insertWord(word);
             } else {
                 word = words.get(0);
                 word.setCorrect(word.getCorrect() + correct);
                 word.setTotal(word.getTotal() + correct + wrong);
+                word.setLastDate(TimeUtils.getCurrentTimeMillis());
                 wordDao.updateWord(word);
             }
 //            Log.i("@@@ word", word.getTotal() + " " + word.getCorrect());

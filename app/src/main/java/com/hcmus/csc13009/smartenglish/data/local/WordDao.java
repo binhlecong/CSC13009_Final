@@ -24,7 +24,7 @@ public interface WordDao {
     @Update
     void updateWord(Word word);
 
-    @Query("SELECT * FROM word_table")
+    @Query("SELECT * FROM word_table ORDER BY last_date")
     LiveData<List<Word>> getAllWords();
 
     @Query( "SELECT * FROM word_table " +

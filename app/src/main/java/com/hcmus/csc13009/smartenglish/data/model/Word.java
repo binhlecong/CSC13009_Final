@@ -17,11 +17,14 @@ public class Word implements Serializable {
     private int correct;
     @ColumnInfo(name = "total")
     private int total;
+    @ColumnInfo(name = "last_date")
+    private long lastDate;
 
-    public Word(@NonNull String word, int correct, int total) {
+    public Word(@NonNull String word, int correct, int total, long lastDate) {
         this.word = word;
         this.correct = correct;
         this.total = total;
+        this.lastDate = lastDate;
     }
 
     @NonNull
@@ -37,6 +40,10 @@ public class Word implements Serializable {
         return total;
     }
 
+    public long getLastDate() {
+        return lastDate;
+    }
+
     public void setWord(@NonNull String word) {
         this.word = word;
     }
@@ -47,5 +54,10 @@ public class Word implements Serializable {
 
     public void setTotal(int total) {
         this.total = total;
+    }
+
+    public void setLastDate(long lastDate) {
+        if (getLastDate() < lastDate)
+            this.lastDate = lastDate;
     }
 }
