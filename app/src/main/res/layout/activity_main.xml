@@ -1,56 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.hcmus.csc13009.smartenglish.frontend.listwords.MainActivity">
+    android:background="@color/colorPrimaryDark"
+    android:fitsSystemWindows="true">
 
+    <include layout="@layout/content_list_words" />
 
-    <FrameLayout
-        android:id="@+id/frameLayout"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar">
 
-    <com.gauravk.bubblenavigation.BubbleNavigationLinearView
-        android:id="@+id/navigationBar"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_gravity="bottom"
-        app:layout_constraintBottom_toBottomOf="@id/frameLayout"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="5dp"
-        android:background="@drawable/bg_rounded"
-        android:elevation="8dp"
-        android:padding="5dp">
-
-        <com.gauravk.bubblenavigation.BubbleToggleView
-            android:id="@+id/tabFilm"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:bt_colorActive="#81c784"
-            app:bt_colorInactive="#78909c"
-            app:bt_icon="@drawable/ic_check_correct"
-            app:bt_shape="@drawable/tab_check_correct_color"
-            app:bt_title="Correct List"
-            app:bt_titlePadding="5dp"
-            app:bt_titleSize="10sp" />
+            android:layout_height="match_parent">
 
-        <com.gauravk.bubblenavigation.BubbleToggleView
-            android:id="@+id/tabTV"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:bt_colorActive="#f06292"
-            app:bt_colorInactive="#78909c"
-            app:bt_icon="@drawable/ic_check_incorrect"
-            app:bt_shape="@drawable/tab_check_incorrect_color"
-            app:bt_title="Incorrect List"
-            app:bt_titlePadding="5dp"
-            app:bt_titleSize="10sp" />
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_bottom_list_words">
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+            <com.leinardi.android.speeddial.SpeedDialOverlayLayout
+                android:id="@+id/overlay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="Study/Check Mode"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                app:clickable_overlay="true"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    </com.gauravk.bubblenavigation.BubbleNavigationLinearView>
+            <com.leinardi.android.speeddial.SpeedDialView
+                android:id="@+id/speedDial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_marginBottom="80dp"
+                android:layout_marginRight="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                app:layout_behavior="@string/speeddial_scrolling_view_snackbar_behavior"
+                app:sdExpansionMode="top"
+                app:sdMainFabAnimationRotateAngle="90"
+                app:sdMainFabClosedSrc="@drawable/ic_mode"
+                app:sdMainFabOpenedSrc="@drawable/ic_mode"
+                app:sdOverlayLayout="@id/overlay">
+            </com.leinardi.android.speeddial.SpeedDialView>
+        </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.gauravk.bubblenavigation.BubbleNavigationLinearView
+            android:id="@+id/navigationBar"
+            android:layout_width="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_height="60dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/bg_rounded"
+            android:elevation="8dp"
+            android:padding="5dp">
+
+            <com.gauravk.bubblenavigation.BubbleToggleView
+                android:id="@+id/tabFilm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:bt_colorActive="#81c784"
+                app:bt_colorInactive="#78909c"
+                app:bt_icon="@drawable/ic_check_correct"
+                app:bt_shape="@drawable/tab_check_correct_color"
+                app:bt_title="Correct List"
+                app:bt_titlePadding="5dp"
+                app:bt_titleSize="10sp" />
+
+            <com.gauravk.bubblenavigation.BubbleToggleView
+                android:id="@+id/tabTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:bt_colorActive="#f06292"
+                app:bt_colorInactive="#78909c"
+                app:bt_icon="@drawable/ic_check_incorrect"
+                app:bt_shape="@drawable/tab_check_incorrect_color"
+                app:bt_title="Incorrect List"
+                app:bt_titlePadding="5dp"
+                app:bt_titleSize="10sp" />
+
+        </com.gauravk.bubblenavigation.BubbleNavigationLinearView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</RelativeLayout>

@@ -48,7 +48,6 @@ public class ListWordsIncorrectFragment extends Fragment {
 
         viewModel = new ViewModelProvider(this).get(ListWordsViewModel.class);
         initRecyclerView();
-        initSpeedDialFloatingButton(savedInstanceState == null);
 
     }
 
@@ -72,33 +71,5 @@ public class ListWordsIncorrectFragment extends Fragment {
 
     }
 
-    private void initSpeedDialFloatingButton(boolean isAddActionItems) {
-        SpeedDialView speedDialView = binding.speedDial;
-        if (isAddActionItems){
-            speedDialView.addActionItem(new SpeedDialActionItem.Builder(R.id.fab_study, R.drawable.ic_study)
-                    .setLabel("Study Mode")
-                    .create());
-            speedDialView.addActionItem(new SpeedDialActionItem.Builder(R.id.fab_exam, R.drawable.ic_exam)
-                    .setLabel("Exam Mode")
-                    .create());
-        }
 
-        speedDialView.setOnActionSelectedListener(actionItem -> {
-            switch (actionItem.getId()) {
-                case R.id.fab_study:
-                    Intent studyIntent = new Intent(requireContext(), DetectorActivity.class);
-                    studyIntent.putExtra("mode", "study");
-                    startActivity(studyIntent);
-                    break;
-                case R.id.fab_exam:
-                    Intent examIntent = new Intent(requireContext(), DetectorActivity.class);
-                    examIntent.putExtra("mode", "exam");
-                    startActivity(examIntent);
-                    break;
-                default:
-                    return false;
-            }
-            return false;
-        });
-    }
 }
