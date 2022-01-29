@@ -1,14 +1,8 @@
 package com.hcmus.csc13009.smartenglish.question;
 
-import android.graphics.RectF;
-import android.util.Log;
-import android.util.Pair;
-
 import com.hcmus.csc13009.smartenglish.detection.camera.DetectorActivity;
 import com.hcmus.csc13009.smartenglish.detection.tracking.MultiBoxTracker;
 
-import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 public class QuestionHandler {

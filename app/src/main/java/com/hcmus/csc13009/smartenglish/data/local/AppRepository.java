@@ -38,6 +38,14 @@ public class AppRepository {
         return allWords;
     }
 
+    public LiveData<List<Word>> getAllCorrectWords() {
+        return wordDao.getAllCorrectWords();
+    }
+
+    public LiveData<List<Word>> getAllInCorrectWords() {
+        return wordDao.getAllInCorrectWords();
+    }
+
     public void insertWord(Word word) {
         AppRoomDatabase.databaseWriteExecutor.execute(() -> {
            wordDao.insertWord(word);

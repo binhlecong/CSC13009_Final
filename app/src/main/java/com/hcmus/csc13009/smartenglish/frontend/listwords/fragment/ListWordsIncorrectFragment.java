@@ -59,13 +59,10 @@ public class ListWordsIncorrectFragment extends Fragment {
         binding.recyclerView.setHasFixedSize(true);
         binding.recyclerView.setAdapter(adapter);
 
-        viewModel.getAllWords().observe(getViewLifecycleOwner(), new Observer<List<Word>>() {
-            @Override
-            public void onChanged(List<Word> words) {
-                if (words != null) {
-                    Log.i("@LW", "List words data changed, size = " + words.size());
-                    adapter.setWords(words);
-                }
+        viewModel.getAllInCorrectWords().observe(getViewLifecycleOwner(), words -> {
+            if (words != null) {
+                Log.i("@LW", "List words data changed, size = " + words.size());
+                adapter.setWords(words);
             }
         });
 
