@@ -43,7 +43,7 @@ public class PopupView {
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
         // Display words in a horizontal listview
         TextView titleWord = popupView.findViewById(R.id.title_word);
-        titleWord.setText(word);
+        titleWord.setText(word.toUpperCase());
         // Add close btn
         FloatingActionButton closePopup = popupView.findViewById(R.id.close_popup);
         //Handler for clicking on the inactive zone of the window

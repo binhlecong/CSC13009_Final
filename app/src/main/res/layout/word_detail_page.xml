@@ -27,7 +27,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:textColor="@color/tfe_color_primary"
-                android:textSize="24sp"
+                android:textSize="32sp"
                 android:textStyle="bold" />
 
             <ScrollView
