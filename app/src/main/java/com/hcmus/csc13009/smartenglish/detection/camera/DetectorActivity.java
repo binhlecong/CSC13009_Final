@@ -229,7 +229,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                     if (isRunningQuestion) return;
                     // Choose question type in test mode
                     if (questionHandler == null)
-                        questionHandler = new QuestionHandler(tracker.getTrackedObjects(), this);
+                        questionHandler = new QuestionHandler(tracker, this);
 
                     questionHandler.generateQuestion();
                     isRunningQuestion = true;

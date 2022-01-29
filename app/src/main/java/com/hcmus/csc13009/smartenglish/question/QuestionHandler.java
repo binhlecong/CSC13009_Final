@@ -1,23 +1,27 @@
 package com.hcmus.csc13009.smartenglish.question;
 
 import android.graphics.RectF;
+import android.util.Log;
 import android.util.Pair;
 
 import com.hcmus.csc13009.smartenglish.detection.camera.DetectorActivity;
+import com.hcmus.csc13009.smartenglish.detection.tracking.MultiBoxTracker;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class QuestionHandler {
     private Question question;
     private final Random generator = new Random();
-    private final List<Pair<String, RectF>> trackedObject;
+    // reference to object detection tracker
+    private final MultiBoxTracker tracker;
     // reference to activity
     private final DetectorActivity activity;
 
 
-    public QuestionHandler(List<Pair<String, RectF>> trackedObject, DetectorActivity activity) {
-        this.trackedObject = trackedObject;
+    public QuestionHandler(MultiBoxTracker tracker, DetectorActivity activity) {
+        this.tracker = tracker;
         this.activity = activity;
     }
     // factory generate random question
@@ -34,7 +38,8 @@ public class QuestionHandler {
                 setQuestion(new Question1());
                 break;
         }
-        this.question.generateTarget(trackedObject);
+//        Log.i("@@@ tracked: ", tracker.getStorageObject().toString());
+        this.question.generateTarget(tracker.getStorageObject());
         this.question.render(activity);
     }
 

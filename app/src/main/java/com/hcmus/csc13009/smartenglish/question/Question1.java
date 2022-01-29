@@ -27,13 +27,13 @@ public class Question1 extends Question {
     }
 
     @Override
-    public void generateTarget(List<Pair<String, RectF>> trackedObject) {
+    public void generateTarget(List<String> trackedObject) {
         if (trackedObject == null || trackedObject.isEmpty()) {
             setTarget("l");
             return;
         }
         Random random = new Random();
-        String title = trackedObject.get(random.nextInt(trackedObject.size())).first;
+        String title = trackedObject.get(random.nextInt(trackedObject.size()));
         setTarget(String.valueOf(title.charAt(0)));
     }
 }

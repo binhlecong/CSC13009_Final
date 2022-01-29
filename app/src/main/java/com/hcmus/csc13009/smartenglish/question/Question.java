@@ -35,7 +35,7 @@ public abstract class Question {
 
     abstract public boolean validate(String answer);
 
-    abstract public void generateTarget(List<Pair<String, RectF>> trackedObject);
+    abstract public void generateTarget(List<String> trackedObject);
 
     public void render(DetectorActivity activity) {
         activity.showTarget(getTarget());
