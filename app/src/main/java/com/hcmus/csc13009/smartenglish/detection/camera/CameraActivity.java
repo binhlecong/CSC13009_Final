@@ -89,8 +89,11 @@ public abstract class CameraActivity extends AppCompatActivity
     private ImageView plusImageView, minusImageView;
     private SwitchCompat apiSwitchCompat;
     private TextView threadsTextView;
+    // english question
     private TextView requestTextView;
     private TextView targetTextView;
+    private TextView respondTextView;
+    private ImageView helperImageView;
     private SwitchCompat modeSwitchCompat;
 
     private static boolean allPermissionsGranted(final int[] grantResults) {
@@ -119,9 +122,9 @@ public abstract class CameraActivity extends AppCompatActivity
             requestPermission();
         }
 
-        threadsTextView = findViewById(R.id.threads);
-        plusImageView = findViewById(R.id.plus);
-        minusImageView = findViewById(R.id.minus);
+//        threadsTextView = findViewById(R.id.threads);
+//        plusImageView = findViewById(R.id.plus);
+//        minusImageView = findViewById(R.id.minus);
         apiSwitchCompat = findViewById(R.id.api_info_switch);
         bottomSheetLayout = findViewById(R.id.bottom_sheet_layout);
         gestureLayout = findViewById(R.id.gesture_layout);
@@ -129,6 +132,9 @@ public abstract class CameraActivity extends AppCompatActivity
         modeSwitchCompat = findViewById(R.id.mode_switch);
         requestTextView = findViewById(R.id.request);
         targetTextView = findViewById(R.id.target);
+        respondTextView = findViewById(R.id.respond_text);
+        helperImageView = findViewById(R.id.helper_image);
+
         sheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
 
         ViewTreeObserver vto = gestureLayout.getViewTreeObserver();
@@ -173,8 +179,8 @@ public abstract class CameraActivity extends AppCompatActivity
 
         apiSwitchCompat.setOnCheckedChangeListener(this);
         modeSwitchCompat.setOnCheckedChangeListener(this);
-        plusImageView.setOnClickListener(this);
-        minusImageView.setOnClickListener(this);
+//        plusImageView.setOnClickListener(this);
+//        minusImageView.setOnClickListener(this);
         // Set explore mode as the default mode
         turnOffTestMode();
     }
@@ -544,31 +550,44 @@ public abstract class CameraActivity extends AppCompatActivity
     // Handle thread count changes
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.plus) {
-            String threads = threadsTextView.getText().toString().trim();
-            int numThreads = Integer.parseInt(threads);
-            if (numThreads >= 9) return;
-            numThreads++;
-            threadsTextView.setText(String.valueOf(numThreads));
-            setNumThreads(numThreads);
-        } else if (v.getId() == R.id.minus) {
-            String threads = threadsTextView.getText().toString().trim();
-            int numThreads = Integer.parseInt(threads);
-            if (numThreads == 1) {
-                return;
-            }
-            numThreads--;
-            threadsTextView.setText(String.valueOf(numThreads));
-            setNumThreads(numThreads);
-        }
+//        if (v.getId() == R.id.plus) {
+//            String threads = threadsTextView.getText().toString().trim();
+//            int numThreads = Integer.parseInt(threads);
+//            if (numThreads >= 9) return;
+//            numThreads++;
+//            threadsTextView.setText(String.valueOf(numThreads));
+//            setNumThreads(numThreads);
+//        } else if (v.getId() == R.id.minus) {
+//            String threads = threadsTextView.getText().toString().trim();
+//            int numThreads = Integer.parseInt(threads);
+//            if (numThreads == 1) {
+//                return;
+//            }
+//            numThreads--;
+//            threadsTextView.setText(String.valueOf(numThreads));
+//            setNumThreads(numThreads);
+//        }
     }
 
-    protected void showTarget(String target) {
+    public void showTarget(String target) {
         targetTextView.setText(target);
     }
 
-    protected void showRequest(String request) {
+    public void showRequest(String request) {
         requestTextView.setText(request);
+    }
+
+    public void showRespond(String respond) {
+        respondTextView.setText(respond);
+    }
+
+    public void showHelperImage(int resId) {
+        if (resId == -1) {
+            helperImageView.setVisibility(View.GONE);
+        } else {
+            helperImageView.setImageResource(resId);
+            helperImageView.setVisibility(View.VISIBLE);
+        }
     }
 
     protected abstract void processImage();

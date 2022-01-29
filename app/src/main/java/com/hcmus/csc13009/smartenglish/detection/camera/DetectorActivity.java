@@ -228,13 +228,14 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                 if (activityMode == TEST_MODE) {
                     if (isRunningQuestion) return;
                     // Choose question type in test mode
-                    questionHandler = new QuestionHandler(tracker.getTrackedObjects());
+                    if (questionHandler == null)
+                        questionHandler = new QuestionHandler(tracker, this);
 
                     questionHandler.generateQuestion();
                     isRunningQuestion = true;
                     // Display the question
-                    showRequest(questionHandler.getQuestion().getRequest());
-                    showTarget(questionHandler.getQuestion().getTarget());
+//                    showRequest(questionHandler.getQuestion().getRequest());
+//                    showTarget(questionHandler.getQuestion().getTarget());
                 } else {
                     isRunningQuestion = false;
                     showRequest("Hãy tìm đồ vật và chạm vào nó");
@@ -275,7 +276,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
         int maskedAction = event.getActionMasked();
         if (maskedAction != MotionEvent.ACTION_DOWN)
             return false;
-
+        showRespond("");
         float x = event.getX();
         float y = event.getY();
         Pair<String, RectF> result = viewModel.getObjectAtPosition(x, y, tracker);
@@ -298,6 +299,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                         isRunningQuestion = false;
                     }
                     showAnimation(false, x, y);
+                    showRespond("Sorry! That is a " + result.first);
                     // ToDO: handle score
                     setScore(getScore() - 1);
                 }
@@ -307,27 +309,20 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
     }
 
     private void showAnimation(boolean isCorrect, float x, float y) {
+        ImageView imageView = findViewById(isCorrect ? R.id.correct_answer : R.id.wrong_answer);
+        imageView.setX(x);
+        imageView.setY(y);
+        imageView.setVisibility(View.VISIBLE);
+        Animation fadeAnim = new AlphaAnimation(1f, 0f);
+        fadeAnim.setDuration(1000);
+        fadeAnim.setFillAfter(true);
+
         if (isCorrect) {
-            ImageView imageView = findViewById(R.id.correct_answer);
-            imageView.setX(x);
-            imageView.setY(y);
-            imageView.setVisibility(View.VISIBLE);
-            Animation fadeAnim = new AlphaAnimation(1f, 0f);
-            fadeAnim.setDuration(1000);
-            fadeAnim.setFillAfter(true);
             imageView.animate().translationY(y - 50).setDuration(1000);
-            imageView.startAnimation(fadeAnim);
         } else {
-            ImageView imageView = findViewById(R.id.wrong_answer);
-            imageView.setX(x);
-            imageView.setY(y);
-            imageView.setVisibility(View.VISIBLE);
-            Animation fadeAnim = new AlphaAnimation(1f, 0f);
-            fadeAnim.setDuration(1000);
-            fadeAnim.setFillAfter(true);
             imageView.animate().translationY(y + 50).setDuration(1000);
-            imageView.startAnimation(fadeAnim);
         }
+        imageView.startAnimation(fadeAnim);
     }
 
     // Which detection model to use: by default uses Tensorflow Object Detection API frozen

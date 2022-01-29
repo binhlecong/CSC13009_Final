@@ -19,7 +19,7 @@ public class Question3 extends Question {
     }
 
     @Override
-    public void generateTarget(List<Pair<String, RectF>> trackedObject) {
+    public void generateTarget(List<String> trackedObject) {
 
     }
 }
