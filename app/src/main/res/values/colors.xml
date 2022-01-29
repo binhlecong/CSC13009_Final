@@ -3,7 +3,7 @@
     <color name="tfe_color_primary">#ffa800</color>
     <color name="tfe_color_primary_dark">#ff6f00</color>
     <color name="tfe_color_accent">#425066</color>
-
+    <color name="card_background">#a0000000</color>
     <color name="tfe_semi_transparent">#ffffff</color>
 
     <color name="colorPrimary">#212d3b</color>
