@@ -55,6 +55,7 @@ import com.hcmus.csc13009.smartenglish.detection.R;
 import com.hcmus.csc13009.smartenglish.detection.env.ImageUtils;
 import com.hcmus.csc13009.smartenglish.detection.env.Logger;
 import com.hcmus.csc13009.smartenglish.utils.BoxTrackerUtils;
+import com.hcmus.csc13009.smartenglish.utils.PopupViewUtils;
 
 import java.nio.ByteBuffer;
 
@@ -181,6 +182,13 @@ public abstract class CameraActivity extends AppCompatActivity
         modeSwitchCompat.setOnCheckedChangeListener(this);
 //        plusImageView.setOnClickListener(this);
 //        minusImageView.setOnClickListener(this);
+        targetTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupViewUtils popupViewUtils = new PopupViewUtils();
+                popupViewUtils.showPopupWindow(v);
+            }
+        });
         // Set explore mode as the default mode
         turnOffTestMode();
     }
