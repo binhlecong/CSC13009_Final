@@ -119,9 +119,9 @@ public abstract class CameraActivity extends AppCompatActivity
             requestPermission();
         }
 
-        threadsTextView = findViewById(R.id.threads);
-        plusImageView = findViewById(R.id.plus);
-        minusImageView = findViewById(R.id.minus);
+//        threadsTextView = findViewById(R.id.threads);
+//        plusImageView = findViewById(R.id.plus);
+//        minusImageView = findViewById(R.id.minus);
         apiSwitchCompat = findViewById(R.id.api_info_switch);
         bottomSheetLayout = findViewById(R.id.bottom_sheet_layout);
         gestureLayout = findViewById(R.id.gesture_layout);
@@ -173,8 +173,8 @@ public abstract class CameraActivity extends AppCompatActivity
 
         apiSwitchCompat.setOnCheckedChangeListener(this);
         modeSwitchCompat.setOnCheckedChangeListener(this);
-        plusImageView.setOnClickListener(this);
-        minusImageView.setOnClickListener(this);
+//        plusImageView.setOnClickListener(this);
+//        minusImageView.setOnClickListener(this);
         // Set explore mode as the default mode
         turnOffTestMode();
     }
@@ -544,23 +544,23 @@ public abstract class CameraActivity extends AppCompatActivity
     // Handle thread count changes
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.plus) {
-            String threads = threadsTextView.getText().toString().trim();
-            int numThreads = Integer.parseInt(threads);
-            if (numThreads >= 9) return;
-            numThreads++;
-            threadsTextView.setText(String.valueOf(numThreads));
-            setNumThreads(numThreads);
-        } else if (v.getId() == R.id.minus) {
-            String threads = threadsTextView.getText().toString().trim();
-            int numThreads = Integer.parseInt(threads);
-            if (numThreads == 1) {
-                return;
-            }
-            numThreads--;
-            threadsTextView.setText(String.valueOf(numThreads));
-            setNumThreads(numThreads);
-        }
+//        if (v.getId() == R.id.plus) {
+//            String threads = threadsTextView.getText().toString().trim();
+//            int numThreads = Integer.parseInt(threads);
+//            if (numThreads >= 9) return;
+//            numThreads++;
+//            threadsTextView.setText(String.valueOf(numThreads));
+//            setNumThreads(numThreads);
+//        } else if (v.getId() == R.id.minus) {
+//            String threads = threadsTextView.getText().toString().trim();
+//            int numThreads = Integer.parseInt(threads);
+//            if (numThreads == 1) {
+//                return;
+//            }
+//            numThreads--;
+//            threadsTextView.setText(String.valueOf(numThreads));
+//            setNumThreads(numThreads);
+//        }
     }
 
     protected void showTarget(String target) {

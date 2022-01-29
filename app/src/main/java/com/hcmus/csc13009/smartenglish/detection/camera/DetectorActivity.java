@@ -307,27 +307,20 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
     }
 
     private void showAnimation(boolean isCorrect, float x, float y) {
+        ImageView imageView = findViewById(isCorrect ? R.id.correct_answer : R.id.wrong_answer);
+        imageView.setX(x);
+        imageView.setY(y);
+        imageView.setVisibility(View.VISIBLE);
+        Animation fadeAnim = new AlphaAnimation(1f, 0f);
+        fadeAnim.setDuration(1000);
+        fadeAnim.setFillAfter(true);
+
         if (isCorrect) {
-            ImageView imageView = findViewById(R.id.correct_answer);
-            imageView.setX(x);
-            imageView.setY(y);
-            imageView.setVisibility(View.VISIBLE);
-            Animation fadeAnim = new AlphaAnimation(1f, 0f);
-            fadeAnim.setDuration(1000);
-            fadeAnim.setFillAfter(true);
             imageView.animate().translationY(y - 50).setDuration(1000);
-            imageView.startAnimation(fadeAnim);
         } else {
-            ImageView imageView = findViewById(R.id.wrong_answer);
-            imageView.setX(x);
-            imageView.setY(y);
-            imageView.setVisibility(View.VISIBLE);
-            Animation fadeAnim = new AlphaAnimation(1f, 0f);
-            fadeAnim.setDuration(1000);
-            fadeAnim.setFillAfter(true);
             imageView.animate().translationY(y + 50).setDuration(1000);
-            imageView.startAnimation(fadeAnim);
         }
+        imageView.startAnimation(fadeAnim);
     }
 
     // Which detection model to use: by default uses Tensorflow Object Detection API frozen

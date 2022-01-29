@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Question1 extends Question {
-    public static final String QUESTION = "Tìm đồ vật bắt đầu bằng kí tự sau:";
+    public static final String QUESTION = "Tìm đồ vật bắt đầu bằng chữ cái:";
 
     public Question1() {
         super(QUESTION, null);
