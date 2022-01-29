@@ -39,5 +39,6 @@ public abstract class Question {
     public void render(DetectorActivity activity) {
         activity.showTarget(getTarget());
         activity.showRequest(getRequest());
+        activity.showHelperImage(-1);
     }
 }

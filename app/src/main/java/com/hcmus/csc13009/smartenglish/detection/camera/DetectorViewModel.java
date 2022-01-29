@@ -47,6 +47,8 @@ public class DetectorViewModel extends AndroidViewModel {
     }
 
     public void updateScore(@NonNull String label, int score) {
+        if (label.equals("tv"))
+            label = "television";
         repository.updateScore(label, score);
     }
 

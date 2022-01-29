@@ -597,6 +597,10 @@ public abstract class CameraActivity extends AppCompatActivity
         }
     }
 
+    public ImageView getHelperImageView() {
+        return helperImageView;
+    }
+
     protected abstract void processImage();
 
     protected abstract void onPreviewSizeChosen(final Size size, final int rotation);
