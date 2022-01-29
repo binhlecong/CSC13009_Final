@@ -517,6 +517,7 @@ public abstract class CameraActivity extends AppCompatActivity
         TextView txtView = (TextView) findViewById(R.id.test_score);
         if (txtView != null)
             txtView.setVisibility(View.INVISIBLE);
+        setScore(0);
     }
 
     private void turnOnTestMode() {
@@ -536,6 +537,7 @@ public abstract class CameraActivity extends AppCompatActivity
     protected void setScore(int score) {
         this.score = score;
         TextView txtView = (TextView) findViewById(R.id.test_score);
+        if (txtView == null) return;
         txtView.setText(String.format("Score: %d", score));
     }
 
