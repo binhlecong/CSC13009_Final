@@ -1,14 +1,8 @@
 package com.hcmus.csc13009.smartenglish.question;
 
-import android.graphics.RectF;
-import android.util.Log;
-import android.util.Pair;
-
 import com.hcmus.csc13009.smartenglish.detection.camera.DetectorActivity;
 import com.hcmus.csc13009.smartenglish.detection.tracking.MultiBoxTracker;
 
-import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 public class QuestionHandler {
@@ -26,7 +20,7 @@ public class QuestionHandler {
     }
     // factory generate random question
     public void generateQuestion() {
-        int questionType = generator.nextInt(2) + 1;
+        int questionType = generator.nextInt(3) + 1;
         switch (questionType) {
             case 1:
                 setQuestion(new Question1());
@@ -35,12 +29,13 @@ public class QuestionHandler {
                 setQuestion(new Question2());
                 break;
             default:
-                setQuestion(new Question1());
+                setQuestion(new Question3());
                 break;
         }
 //        Log.i("@@@ tracked: ", tracker.getStorageObject().toString());
         this.question.generateTarget(tracker.getStorageObject());
         this.question.render(activity);
+        activity.showRespond("");
     }
 
     public void setQuestion(Question q) {
@@ -52,6 +47,8 @@ public class QuestionHandler {
     }
 
     public boolean validate(String answer) {
+        if (answer.equals("tv"))
+            answer = "television";
         return this.question.validate(answer);
     }
 }

@@ -24,4 +24,12 @@ public class ListWordsViewModel  extends AndroidViewModel {
     public LiveData<List<Word>> getAllWords() {
         return this.allWords;
     }
+
+    public LiveData<List<Word>> getAllCorrectWords() {
+        return repository.getAllCorrectWords();
+    }
+
+    public LiveData<List<Word>> getAllInCorrectWords() {
+        return repository.getAllInCorrectWords();
+    }
 }
