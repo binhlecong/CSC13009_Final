@@ -42,19 +42,18 @@
                 android:id="@+id/speedDial"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                android:layout_marginBottom="80dp"
-                android:layout_marginRight="40dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
+                android:layout_gravity="bottom|end"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="80dp"
                 app:layout_behavior="@string/speeddial_scrolling_view_snackbar_behavior"
                 app:sdExpansionMode="top"
                 app:sdMainFabAnimationRotateAngle="90"
-                app:sdMainFabClosedSrc="@drawable/ic_mode"
-                app:sdMainFabOpenedSrc="@drawable/ic_mode"
-                app:sdOverlayLayout="@id/overlay">
-            </com.leinardi.android.speeddial.SpeedDialView>
+                app:sdMainFabClosedSrc="@drawable/ic_camera"
+                app:sdMainFabOpenedSrc="@drawable/ic_camera"
+                app:sdOverlayLayout="@id/overlay"></com.leinardi.android.speeddial.SpeedDialView>
         </RelativeLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 

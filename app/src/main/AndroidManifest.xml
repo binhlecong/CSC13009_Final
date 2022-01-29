@@ -24,12 +24,12 @@
 
         <activity
             android:name="com.hcmus.csc13009.smartenglish.detection.camera.DetectorActivity"
-            android:label="@string/smart_english_app_name"
+            android:label="Detector"
             android:screenOrientation="portrait">
         </activity>
 
         <activity android:name="com.hcmus.csc13009.smartenglish.frontend.listwords.MainActivity"
-            android:label="List Words"
+            android:label="@string/smart_english_app_name"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,5 +1,6 @@
 package com.hcmus.csc13009.smartenglish.frontend.listwords.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -33,6 +34,7 @@ public class IncorrectWordAdapter extends RecyclerView.Adapter<IncorrectWordAdap
         binding.word.setText(word.getWord());
         String correctPerTotal = word.getCorrect() + "/" +word.getTotal();
         binding.correctPerTotal.setText(correctPerTotal);
+        holder.setImage(word.getWord());
     }
 
     @Override
@@ -56,6 +58,17 @@ public class IncorrectWordAdapter extends RecyclerView.Adapter<IncorrectWordAdap
         public IncorrectWordViewHolder(@NonNull ItemListWordsIncorrectBinding itemBinding) {
             super(itemBinding.getRoot());
             binding = itemBinding;
+        }
+
+        public void setImage(String label) {
+            if (label.equals("television"))
+                label = "tv";
+            label = label.replaceAll("\\s+", "").toLowerCase();
+            Context context = binding.getRoot().getContext();
+            int resId = context.getResources().getIdentifier("word_" + label, "drawable", context.getPackageName());
+            if (resId == 0)
+                return;
+            binding.imageCorrectListItem.setImageResource(resId);
         }
     }
 }
