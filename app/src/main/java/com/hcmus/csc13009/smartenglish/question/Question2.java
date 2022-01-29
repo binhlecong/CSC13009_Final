@@ -26,10 +26,12 @@ public class Question2 extends Question {
 
     // generate a label
     @Override
-    public void generateTarget(List<Pair<String, RectF>> trackedObject) {
-        if (trackedObject == null || trackedObject.isEmpty())
+    public void generateTarget(List<String> trackedObject) {
+        if (trackedObject == null || trackedObject.isEmpty()) {
             setTarget("laptop");
+            return;
+        }
         Random random = new Random();
-        setTarget(trackedObject.get(random.nextInt(trackedObject.size())).first);
+        setTarget(trackedObject.get(random.nextInt(trackedObject.size())));
     }
 }

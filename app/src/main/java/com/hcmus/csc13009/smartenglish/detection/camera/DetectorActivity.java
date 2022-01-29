@@ -31,6 +31,10 @@ import android.util.Pair;
 import android.util.Size;
 import android.util.TypedValue;
 import android.view.MotionEvent;
+import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -154,6 +158,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
         tracker.setFrameConfiguration(previewWidth, previewHeight, sensorOrientation);
 
         viewModel = new ViewModelProvider(this).get(DetectorViewModel.class);
+
     }
 
     @Override
@@ -223,13 +228,14 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                 if (activityMode == TEST_MODE) {
                     if (isRunningQuestion) return;
                     // Choose question type in test mode
-                    questionHandler = new QuestionHandler(tracker.getTrackedObjects());
+                    if (questionHandler == null)
+                        questionHandler = new QuestionHandler(tracker, this);
 
                     questionHandler.generateQuestion();
                     isRunningQuestion = true;
                     // Display the question
-                    showRequest(questionHandler.getQuestion().getRequest());
-                    showTarget(questionHandler.getQuestion().getTarget());
+//                    showRequest(questionHandler.getQuestion().getRequest());
+//                    showTarget(questionHandler.getQuestion().getTarget());
                 } else {
                     isRunningQuestion = false;
                     showRequest("Hãy tìm đồ vật và chạm vào nó");
@@ -270,7 +276,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
         int maskedAction = event.getActionMasked();
         if (maskedAction != MotionEvent.ACTION_DOWN)
             return false;
-
+        showRespond("");
         float x = event.getX();
         float y = event.getY();
         Pair<String, RectF> result = viewModel.getObjectAtPosition(x, y, tracker);
@@ -284,15 +290,39 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                 if (isCorrect) {
                     isRunningQuestion = false;
                     viewModel.updateScore(result.first, 1);
+                    showAnimation(true, x, y);
+                    // TODO: handle score
+                    setScore(getScore() + 1);
                 } else {
                     if (viewModel.answerWrong()) {
                         viewModel.updateScore(questionHandler.getQuestion().getTarget(), -1);
                         isRunningQuestion = false;
                     }
+                    showAnimation(false, x, y);
+                    showRespond("Sorry! That is a " + result.first);
+                    // ToDO: handle score
+                    setScore(getScore() - 1);
                 }
             }
         }
         return true;
+    }
+
+    private void showAnimation(boolean isCorrect, float x, float y) {
+        ImageView imageView = findViewById(isCorrect ? R.id.correct_answer : R.id.wrong_answer);
+        imageView.setX(x);
+        imageView.setY(y);
+        imageView.setVisibility(View.VISIBLE);
+        Animation fadeAnim = new AlphaAnimation(1f, 0f);
+        fadeAnim.setDuration(1000);
+        fadeAnim.setFillAfter(true);
+
+        if (isCorrect) {
+            imageView.animate().translationY(y - 50).setDuration(1000);
+        } else {
+            imageView.animate().translationY(y + 50).setDuration(1000);
+        }
+        imageView.startAnimation(fadeAnim);
     }
 
     // Which detection model to use: by default uses Tensorflow Object Detection API frozen
