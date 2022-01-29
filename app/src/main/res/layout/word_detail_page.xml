@@ -27,13 +27,19 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:textColor="@color/tfe_color_primary"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
-            <LinearLayout
-                android:id="@+id/content_container"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" />
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/content_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+            </ScrollView>
 
         </LinearLayout>
 
