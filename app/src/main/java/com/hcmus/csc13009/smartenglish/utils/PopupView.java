@@ -19,6 +19,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class PopupView {
     Context context;
@@ -76,12 +77,38 @@ public class PopupView {
         if (progressBar != null) progressBar.setVisibility(View.GONE);
     }
 
-    private void showDefinition(String s) {
-        TextView content = popupView.findViewById(R.id.content);
-        if (content != null) content.setText(s);
+    private void showDefinition(ArrayList<String> s) {
+        LinearLayout contentContainer = popupView.findViewById(R.id.content_container);
+        for (int i = 0; i < s.size(); i += 2) {
+            TextView textView = null;
+            switch (s.get(i)) {
+                case "type":
+                    textView =
+                            (TextView) LayoutInflater.from(context).inflate(R.layout.word_type_layout, null);
+                    break;
+                case "vi_trans":
+                    textView =
+                            (TextView) LayoutInflater.from(context).inflate(R.layout.word_vi_trans_layout, null);
+                    break;
+                case "en_sample":
+                    textView =
+                            (TextView) LayoutInflater.from(context).inflate(R.layout.word_en_sample_layout, null);
+                    break;
+                case "phrase":
+                    textView =
+                            (TextView) LayoutInflater.from(context).inflate(R.layout.word_phrase_layout, null);
+                    break;
+                default:
+                    textView =
+                            (TextView) LayoutInflater.from(context).inflate(R.layout.word_vi_sample_layout, null);
+                    break;
+            }
+            if (textView != null) textView.setText(s.get(i + 1));
+            contentContainer.addView(textView);
+        }
     }
 
-    private class ParseUrl extends AsyncTask<String, Void, String> {
+    private class ParseUrl extends AsyncTask<String, Void, ArrayList<String>> {
 
 
         @Override
@@ -91,26 +118,47 @@ public class PopupView {
         }
 
         @Override
-        protected String doInBackground(String... params) {
-            StringBuffer buffer = new StringBuffer();
+        protected ArrayList<String> doInBackground(String... params) {
+            ArrayList<String> strContent = new ArrayList<>();
 
             try {
                 Document document = Jsoup.connect(params[0]).get();
-                if (document == null) return "Fail to get document";
-                Element content = document.getElementsByClass("content").get(0);
-                Elements divs = content.getElementsByTag("div");
-                for (int i = 1; i < divs.size(); i++) {
-                    buffer.append(divs.get(i).text()).append("\n");
+                if (document == null) {
+                    strContent.add("vi_sample");
+                    strContent.add("Fail to load");
+                } else {
+                    Element content = document.getElementsByClass("content").get(0);
+                    Elements divs = content.getElementsByTag("div");
+                    for (int i = 1; i < divs.size(); i++) {
+                        Element element = divs.get(i);
+                        if (element.hasClass("m-top20")) {
+                            // Type of definition
+                            strContent.add("type");
+                        } else if (element.hasClass("m-top15") && element.hasClass("bold")) {
+                            // Vietnamese translation
+                            strContent.add("vi_trans");
+                        } else if (element.hasClass("color-light-blue")) {
+                            // English sample
+                            strContent.add("en_sample");
+                        } else if (element.hasClass("dot-blue")) {
+                            // Phrase
+                            strContent.add("phrase");
+                        } else {
+                            // Vietnamese sample
+                            strContent.add("vi_sample");
+                        }
+                        strContent.add(divs.get(i).text());
+                    }
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
-            return buffer.toString();
+            return strContent;
         }
 
         @Override
-        protected void onPostExecute(String s) {
+        protected void onPostExecute(ArrayList<String> s) {
             super.onPostExecute(s);
             hideProgressCircular();
             showDefinition(s);

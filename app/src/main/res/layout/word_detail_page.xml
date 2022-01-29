@@ -29,10 +29,11 @@
                 android:textColor="@color/tfe_color_primary"
                 android:textSize="24sp" />
 
-            <TextView
-                android:id="@+id/content"
+            <LinearLayout
+                android:id="@+id/content_container"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
 
         </LinearLayout>
 
