@@ -34,7 +34,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Trace;
-import android.util.Log;
 import android.util.Size;
 import android.view.Surface;
 import android.view.View;
@@ -56,7 +55,7 @@ import com.hcmus.csc13009.smartenglish.detection.R;
 import com.hcmus.csc13009.smartenglish.detection.env.ImageUtils;
 import com.hcmus.csc13009.smartenglish.detection.env.Logger;
 import com.hcmus.csc13009.smartenglish.utils.BoxTrackerUtils;
-import com.hcmus.csc13009.smartenglish.utils.PopupViewUtils;
+import com.hcmus.csc13009.smartenglish.utils.PopupView;
 
 import java.nio.ByteBuffer;
 
@@ -186,8 +185,8 @@ public abstract class CameraActivity extends AppCompatActivity
         targetTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PopupViewUtils.showPopupWindow(getApplicationContext(), v,
-                        targetTextView.getText().toString().split(" "));
+                PopupView popupView = new PopupView(getApplicationContext());
+                popupView.showPopupWindow(v, targetTextView.getText().toString());
             }
         });
         // Set explore mode as the default mode
