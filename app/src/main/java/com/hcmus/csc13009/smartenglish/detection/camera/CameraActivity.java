@@ -51,9 +51,6 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.hcmus.csc13009.smartenglish.data.api.ApiUtils;
-import com.hcmus.csc13009.smartenglish.data.api.DictionaryApi;
-import com.hcmus.csc13009.smartenglish.data.api.pojos.Example;
 import com.hcmus.csc13009.smartenglish.detection.R;
 import com.hcmus.csc13009.smartenglish.detection.env.ImageUtils;
 import com.hcmus.csc13009.smartenglish.detection.env.Logger;
@@ -61,11 +58,6 @@ import com.hcmus.csc13009.smartenglish.utils.BoxTrackerUtils;
 import com.hcmus.csc13009.smartenglish.utils.PopupViewUtils;
 
 import java.nio.ByteBuffer;
-import java.util.ArrayList;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public abstract class CameraActivity extends AppCompatActivity
         implements OnImageAvailableListener,
@@ -193,19 +185,8 @@ public abstract class CameraActivity extends AppCompatActivity
         targetTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DictionaryApi dictionaryApi = ApiUtils.getRetrofitClient();
-                dictionaryApi.getExample("run").enqueue(new Callback<ArrayList<Example>>() {
-                    @Override
-                    public void onResponse(Call<ArrayList<Example>> call, Response<ArrayList<Example>> response) {
-                        PopupViewUtils.showPopupWindow(v, response.body());
-                    }
-
-                    @Override
-                    public void onFailure(Call<ArrayList<Example>> call, Throwable t) {
-                        Toast.makeText(getApplicationContext(), "Fail to load word",
-                                Toast.LENGTH_SHORT).show();
-                    }
-                });
+                PopupViewUtils.showPopupWindow(getApplicationContext(), v,
+                        targetTextView.getText().toString().split(" "));
             }
         });
         // Set explore mode as the default mode
