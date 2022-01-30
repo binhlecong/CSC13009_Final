@@ -28,6 +28,7 @@
                 android:layout_marginVertical="10dp"
                 android:gravity="center"
                 android:textColor="@color/tfe_color_primary"
+                android:fontFamily="@font/sourceserif4"
                 android:textSize="32sp"
                 android:textStyle="bold" />
 

@@ -52,6 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
+                android:fontFamily="@font/sourceserif4"
                 android:text="@string/sw_mode_title" />
         </androidx.appcompat.widget.Toolbar>
 
@@ -68,7 +69,7 @@
         android:layout_marginTop="60dp"
         android:text="Score: 0"
         android:padding="8dp"
-        android:fontFamily="monospace"
+        android:fontFamily="@font/sourceserif4"
         android:textColor="@android:color/holo_green_light"
         android:textSize="16sp"
         android:visibility="visible" />

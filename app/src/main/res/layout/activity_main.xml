@@ -54,7 +54,7 @@
                 app:sdMainFabAnimationRotateAngle="90"
                 app:sdMainFabClosedSrc="@drawable/ic_magnifier"
                 app:sdMainFabOpenedSrc="@drawable/ic_magnifier"
-                app:sdOverlayLayout="@id/overlay"></com.leinardi.android.speeddial.SpeedDialView>
+                app:sdOverlayLayout="@id/overlay"/>
         </RelativeLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -75,6 +75,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/sourceserif4"
                 app:bt_colorActive="@color/colorAccent"
                 app:bt_colorInactive="#78909c"
                 app:bt_icon="@drawable/ic_check_recent"
@@ -88,6 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/sourceserif4"
                 app:bt_colorActive="#81c784"
                 app:bt_colorInactive="#78909c"
                 app:bt_icon="@drawable/ic_check_correct"
@@ -101,6 +103,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/sourceserif4"
                 app:bt_colorActive="#f06292"
                 app:bt_colorInactive="#78909c"
                 app:bt_icon="@drawable/ic_check_incorrect"

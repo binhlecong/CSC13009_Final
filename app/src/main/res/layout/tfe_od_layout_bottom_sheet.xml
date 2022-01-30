@@ -171,6 +171,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/app_name"
+            android:fontFamily="@font/sourceserif4"
             android:textColor="@android:color/black" />
 
         <androidx.appcompat.widget.SwitchCompat
@@ -178,6 +179,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:fontFamily="@font/sourceserif4"
             android:checked="false"
             android:gravity="end"
             android:text="Thi - Thành - Bình"
