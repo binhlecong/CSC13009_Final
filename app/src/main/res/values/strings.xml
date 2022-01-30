@@ -2,5 +2,5 @@
     <string name="smart_english_app_name" translation_description="Object Detection demo app [CHAR_LIMIT=40]">Smart English</string>
     <string name="tfe_od_camera_error" translation_description="Error regarding camera support[CHAR_LIMIT=40]">This device doesn\'t support Camera2 API.</string>
     <string name="app_name">SmartEnglish</string>
-    <string name="sw_mode_title">Test mode</string>
+    <string name="sw_mode_title">Exam mode</string>
 </resources>
