@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFD273">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/image_lottie_main_content"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="entrance_img.json"
+        app:lottie_loop="true"
+        app:lottie_speed="1"
+        android:layout_gravity="center_horizontal"
+        app:layout_constraintHorizontal_bias=".25"
+        app:layout_constraintVertical_bias=".25"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintHorizontal_bias="0"
+        android:layout_marginTop="15dp"
+        app:layout_constraintStart_toStartOf="@id/image_lottie_main_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/image_lottie_main_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="vertical">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie_main"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="content_list_words.json"
+            app:lottie_loop="true"
+            app:lottie_speed="1"
+            android:layout_gravity="center_horizontal"
+            />
+        <TextView
+            android:id="@+id/scheduleAlarmHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Let's study English now"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/text_view_welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hướng dẫn sử dụng"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-light"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintVertical_bias="0.05"
+        app:layout_constraintTop_toBottomOf="@id/image_lottie_main_content"
+        app:layout_constraintStart_toStartOf="@id/image_lottie_main_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:id="@+id/text_view_introduction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Có hai chế độ: \n Chế độ học tập \n Chế độ kiểm tra"
+        android:textSize="16sp"
+        android:fontFamily="sans-serif-light"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintTop_toBottomOf="@id/text_view_welcome"
+        app:layout_constraintStart_toStartOf="@id/text_view_welcome"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <Button
+        android:id="@+id/btn_to_main_activity"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:background="@drawable/bg_custom_button"
+        android:layout_marginEnd="20dp"
+        android:text="Start"
+        app:layout_constraintHorizontal_bias="1."
+        app:layout_constraintVertical_bias=".6"
+        android:layout_marginLeft="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/text_view_introduction"
+        app:layout_constraintTop_toBottomOf="@id/text_view_introduction"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
