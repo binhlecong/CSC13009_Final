@@ -8,8 +8,8 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/image_lottie_main_content"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         app:lottie_autoPlay="true"
         app:lottie_fileName="entrance_img.json"
         app:lottie_loop="true"
@@ -93,6 +93,7 @@
         android:background="@drawable/bg_custom_button"
         android:layout_marginEnd="20dp"
         android:text="Start"
+        android:textColor="#FFFFFF"
         android:fontFamily="@font/sourceserif4"
         app:layout_constraintHorizontal_bias="1."
         app:layout_constraintVertical_bias=".6"
