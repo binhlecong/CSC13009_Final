@@ -31,13 +31,15 @@
 
         <activity android:name="com.hcmus.csc13009.smartenglish.frontend.listwords.MainActivity"
             android:label="@string/smart_english_app_name"
+            android:exported="false"/>
+        <activity android:name="com.hcmus.csc13009.smartenglish.frontend.entrance.EntranceActivity"
+            android:label="@string/smart_english_app_name"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
 
     </application>
 </manifest>
