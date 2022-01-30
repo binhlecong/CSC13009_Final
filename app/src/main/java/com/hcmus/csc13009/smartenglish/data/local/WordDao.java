@@ -38,7 +38,7 @@ public interface WordDao {
     LiveData<List<Word>> getAllInCorrectWords();
 
     @Query("SELECT * FROM word_table WHERE word LIKE :label")
-    List<Word> getWord(@NonNull String label);
+    List<Word> getWord(String label);
 
 
 }

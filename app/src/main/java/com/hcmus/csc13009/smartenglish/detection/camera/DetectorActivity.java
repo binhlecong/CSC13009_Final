@@ -101,10 +101,10 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
         super.onCreate(savedInstanceState);
         viewModel = new ViewModelProvider(this).get(DetectorViewModel.class);
         String mode = getIntent().getStringExtra("mode");
-        // TODO: fix bug show score
         if (mode != null && mode.equals("exam")) {
             setTestModeOn();
         }
+
     }
 
     @Override
@@ -168,9 +168,6 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
         trackingOverlay.setOnTouchListener((view, motionEvent) -> onOverlayViewTouchEvent(motionEvent));
 
         tracker.setFrameConfiguration(previewWidth, previewHeight, sensorOrientation);
-
-
-
     }
 
     @Override
@@ -238,9 +235,9 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                 if (activityMode == TEST_MODE) {
                     if (isRunningQuestion) return;
                     // Choose question type in test mode
-                    if (questionHandler == null)
+                    if (questionHandler == null) {
                         questionHandler = new QuestionHandler(tracker, this);
-
+                    }
                     questionHandler.generateQuestion();
                     isRunningQuestion = true;
                 } else {

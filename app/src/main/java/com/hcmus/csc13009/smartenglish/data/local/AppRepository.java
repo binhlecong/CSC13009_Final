@@ -6,6 +6,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
+import com.hcmus.csc13009.smartenglish.data.model.Quiz;
 import com.hcmus.csc13009.smartenglish.data.model.Word;
 import com.hcmus.csc13009.smartenglish.utils.TimeUtils;
 
@@ -16,16 +17,20 @@ public class AppRepository {
     static private AppRepository INSTANCE = null;
     // all dao
     final private WordDao wordDao;
+    final private QuizDao quizDao;
     // all data
     private final LiveData<List<Word>> allWords;
+    private final LiveData<List<Quiz>> allQuiz;
 
     public AppRepository(Application app) {
 
         AppRoomDatabase db = AppRoomDatabase.getDatabase(app);
         // get all dao
         wordDao = db.wordDao();
+        quizDao = db.quizDao();
         // get all data
         allWords = wordDao.getAllWords();
+        allQuiz = quizDao.getAllQuiz();
     }
 
     public static AppRepository getInstance(Application app) {
@@ -88,5 +93,9 @@ public class AppRepository {
             }
 //            Log.i("@@@ word", word.getTotal() + " " + word.getCorrect());
         });
+    }
+    // manage quiz
+    public LiveData<List<Quiz>> getAllQuiz() {
+        return allQuiz;
     }
 }

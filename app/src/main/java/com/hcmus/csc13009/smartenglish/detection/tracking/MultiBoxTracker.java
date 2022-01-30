@@ -184,9 +184,10 @@ public class MultiBoxTracker {
                                 : String.format(Locale.getDefault(),"%.2f", (100 * recognition.detectionConfidence));
                 //            borderedText.drawText(canvas, trackedPos.left + cornerSize, trackedPos.top,
                 // labelString);
+                labelString = recognition.title;
                 if (trackOption == TrackerOption.FULL) {
                     borderedText.drawText(
-                            canvas, trackedPos.left + cornerSize, trackedPos.top, labelString + "%", boxPaint);
+                            canvas, trackedPos.left + cornerSize, trackedPos.top, labelString, boxPaint);
                 } else {
                     float midPosLeft = (trackedPos.left + trackedPos.right) / 2;
                     float midPosTop = (trackedPos.top + trackedPos.bottom) / 2;
