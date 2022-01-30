@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:layout_alignParentTop="true"
-            android:background="@color/tfe_semi_transparent">
+            android:background="@color/colorBackground">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -68,7 +68,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
-        android:fontFamily="monospace"
+        android:fontFamily="@font/sourceserif4"
         android:padding="8dp"
         android:text="Score: 0"
         android:textColor="@android:color/holo_green_light"
