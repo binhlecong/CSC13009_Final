@@ -6,6 +6,5 @@
     android:padding="5dp"
     android:paddingStart="20dp"
     android:text="Vietnamese sample"
-    android:fontFamily="@font/sourceserif4"
     android:textColor="@color/colorAccent"
     android:textSize="16sp" />

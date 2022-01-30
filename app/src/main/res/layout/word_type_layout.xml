@@ -8,6 +8,5 @@
     android:paddingVertical="5dp"
     android:text="Type"
     android:textColor="@color/tfe_semi_transparent"
-    android:fontFamily="@font/sourceserif4"
     android:textSize="20sp"
     android:textStyle="italic" />
