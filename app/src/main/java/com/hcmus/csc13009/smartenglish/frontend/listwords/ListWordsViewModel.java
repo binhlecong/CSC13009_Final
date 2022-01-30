@@ -32,4 +32,8 @@ public class ListWordsViewModel  extends AndroidViewModel {
     public LiveData<List<Word>> getAllInCorrectWords() {
         return repository.getAllInCorrectWords();
     }
+
+    public void update(Word word) {
+        repository.updateWord(word);
+    }
 }

@@ -12,11 +12,13 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.hcmus.csc13009.smartenglish.data.model.Word;
 import com.hcmus.csc13009.smartenglish.detection.databinding.FragmentListWordsIncorrectBinding;
 import com.hcmus.csc13009.smartenglish.frontend.listwords.ListWordsViewModel;
 import com.hcmus.csc13009.smartenglish.frontend.listwords.adapter.IncorrectWordAdapter;
+import com.hcmus.csc13009.smartenglish.frontend.utils.DatabaseHelper;
 
-public class ListWordsIncorrectFragment extends Fragment {
+public class ListWordsIncorrectFragment extends Fragment implements DatabaseHelper {
 
     protected FragmentListWordsIncorrectBinding binding;
     private ListWordsViewModel viewModel;
@@ -53,9 +55,11 @@ public class ListWordsIncorrectFragment extends Fragment {
                 adapter.setWords(words);
             }
         });
-
-
     }
 
+    @Override
+    public void onUpdate(Word word) {
+        viewModel.update(word);
+    }
 
 }
