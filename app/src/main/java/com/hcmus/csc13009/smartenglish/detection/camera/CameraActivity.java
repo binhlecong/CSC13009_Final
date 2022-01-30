@@ -528,6 +528,7 @@ public abstract class CameraActivity extends AppCompatActivity
         BoxTrackerUtils.setMode(BoxTrackerUtils.CameraMode.LEARN);
         showRequest("Hãy tìm đồ vật và chạm vào nó");
         showTarget("");
+        helperImageView.setVisibility(View.GONE);
         sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         activityMode = LEARN_MODE;
         TextView txtView = findViewById(R.id.test_score);

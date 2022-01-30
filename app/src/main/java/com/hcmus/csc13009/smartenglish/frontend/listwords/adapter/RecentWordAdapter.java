@@ -10,11 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.hcmus.csc13009.smartenglish.data.model.Word;
 import com.hcmus.csc13009.smartenglish.detection.databinding.ItemListWordsRecentBinding;
+import com.hcmus.csc13009.smartenglish.utils.PopupView;
 import com.hcmus.csc13009.smartenglish.utils.TextToSpeechUtils;
 
 import java.util.List;
 
-public class RecentWordAdapter extends RecyclerView.Adapter<RecentWordAdapter.RecentWordViewHolder>{
+public class RecentWordAdapter extends RecyclerView.Adapter<RecentWordAdapter.RecentWordViewHolder> {
 
     private ItemListWordsRecentBinding binding;
     private List<Word> allWords;
@@ -79,7 +80,8 @@ public class RecentWordAdapter extends RecyclerView.Adapter<RecentWordAdapter.Re
 
         @Override
         public void onClick(View view) {
-
+            PopupView popupView = new PopupView(view.getContext());
+            popupView.showPopupWindow(view, binding.word.getText().toString());
         }
     }
 }
