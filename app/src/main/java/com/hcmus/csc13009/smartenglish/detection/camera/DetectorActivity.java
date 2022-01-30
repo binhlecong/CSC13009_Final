@@ -292,6 +292,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
             if (activityMode == LEARN_MODE) {
                 showTarget(result.first);
                 TextToSpeechUtils.speak(getApplicationContext(), result.first);
+                showRespond("Nhấn vào từ để xem chi tiết");
             } else {
                 boolean isCorrect = questionHandler.validate(result.first);
                 TextToSpeechUtils.speak(getApplicationContext(), isCorrect ? "Correct" : "Wrong");

@@ -21,6 +21,7 @@ import com.hcmus.csc13009.smartenglish.detection.databinding.ActivityMainBinding
 import com.hcmus.csc13009.smartenglish.detection.R;
 import com.hcmus.csc13009.smartenglish.frontend.listwords.fragment.ListWordsCorrectFragment;
 import com.hcmus.csc13009.smartenglish.frontend.listwords.fragment.ListWordsIncorrectFragment;
+import com.hcmus.csc13009.smartenglish.frontend.listwords.fragment.ListWordsRecentFragment;
 import com.hcmus.csc13009.smartenglish.frontend.utils.BottomBarBehavior;
 import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
@@ -50,17 +51,20 @@ public class MainActivity extends AppCompatActivity {
         CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) navigationBar.getLayoutParams();
         layoutParams.setBehavior(new BottomBarBehavior());
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new ListWordsCorrectFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new ListWordsRecentFragment()).commit();
 
         navigationBar.setNavigationChangeListener(new BubbleNavigationChangeListener() {
             @Override
             public void onNavigationChanged(View view, int position) {
                 switch (position) {
-                    case 0:
+                    case 1:
                         fragment = new ListWordsCorrectFragment();
                         break;
-                    case 1:
+                    case 2:
                         fragment = new ListWordsIncorrectFragment();
+                        break;
+                    default:
+                        fragment = new ListWordsRecentFragment();
                         break;
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commit();

@@ -13,15 +13,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.hcmus.csc13009.smartenglish.detection.databinding.FragmentListWordsCorrectBinding;
 import com.hcmus.csc13009.smartenglish.frontend.listwords.ListWordsViewModel;
-import com.hcmus.csc13009.smartenglish.frontend.listwords.adapter.CorrectWordAdapter;
+import com.hcmus.csc13009.smartenglish.frontend.listwords.adapter.RecentWordAdapter;
 
-public class ListWordsCorrectFragment extends Fragment {
+public class ListWordsRecentFragment extends Fragment {
 
     protected FragmentListWordsCorrectBinding binding;
     private ListWordsViewModel viewModel;
-    private CorrectWordAdapter adapter;
+    private RecentWordAdapter adapter;
 
-    public ListWordsCorrectFragment(){}
+    public ListWordsRecentFragment(){}
 
     @Nullable
     @Override
@@ -41,18 +41,16 @@ public class ListWordsCorrectFragment extends Fragment {
 
     private void initRecyclerView() {
 
-        adapter = new CorrectWordAdapter();
+        adapter = new RecentWordAdapter();
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.recyclerView.setHasFixedSize(true);
         binding.recyclerView.setAdapter(adapter);
 
-        viewModel.getAllCorrectWords().observe(getViewLifecycleOwner(), words -> {
+        viewModel.getAllWords().observe(getViewLifecycleOwner(), words -> {
             if (words != null) {
                 adapter.setWords(words);
             }
         });
-
-
     }
 
 }
