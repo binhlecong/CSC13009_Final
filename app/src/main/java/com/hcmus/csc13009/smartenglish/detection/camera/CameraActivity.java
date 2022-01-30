@@ -185,9 +185,10 @@ public abstract class CameraActivity extends AppCompatActivity
         targetTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (activityMode == TEST_MODE) return;
+                String target = targetTextView.getText().toString();
+                if (activityMode == TEST_MODE || target.length() == 0) return;
                 PopupView popupView = new PopupView(getApplicationContext());
-                popupView.showPopupWindow(v, targetTextView.getText().toString());
+                popupView.showPopupWindow(v, target);
             }
         });
         // Set explore mode as the default mode
