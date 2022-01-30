@@ -64,7 +64,7 @@ public class PopupView {
 //                        Toast.LENGTH_SHORT).show();
 //            }
 //        });
-        new ParseUrl().execute(ParserUtils.url + word);
+        new ParseUrl().execute(ParserUtils.url + word.replace(' ', '+'));
     }
 
     private void showProgressCircular() {
@@ -164,5 +164,4 @@ public class PopupView {
             showDefinition(s);
         }
     }
-
 }
