@@ -1,7 +1,9 @@
 package com.hcmus.csc13009.smartenglish.frontend.listwords;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -40,6 +42,10 @@ public class MainActivity extends AppCompatActivity {
         initNavigationBar();
 
         initSpeedDialFloatingButton(savedInstanceState == null);
+
+        AudioManager am = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+        int amStreamMusicMaxVol = am.getStreamMaxVolume(am.STREAM_MUSIC);
+        am.setStreamVolume(am.STREAM_MUSIC, amStreamMusicMaxVol, 0);
 
     }
 
