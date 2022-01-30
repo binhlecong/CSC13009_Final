@@ -38,6 +38,7 @@
             android:id="@+id/request"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/sourceserif4"
             android:text=""
             android:textAlignment="center"
             android:textColor="@android:color/black"
@@ -54,6 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
+            android:fontFamily="@font/sourceserif4"
             android:text=""
             android:textAlignment="center"
             android:textColor="@color/tfe_color_primary_dark"
@@ -140,6 +142,7 @@
         android:id="@+id/respond_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/sourceserif4"
         android:textAlignment="center"
         android:textSize="16sp"
         android:visibility="visible" />
@@ -170,6 +173,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:fontFamily="@font/sourceserif4"
             android:text="@string/app_name"
             android:fontFamily="@font/sourceserif4"
             android:textColor="@android:color/black" />
@@ -181,6 +185,7 @@
             android:layout_marginTop="10dp"
             android:fontFamily="@font/sourceserif4"
             android:checked="false"
+            android:fontFamily="@font/sourceserif4"
             android:gravity="end"
             android:text="Thi - Thành - Bình"
             android:textColor="@android:color/black" />

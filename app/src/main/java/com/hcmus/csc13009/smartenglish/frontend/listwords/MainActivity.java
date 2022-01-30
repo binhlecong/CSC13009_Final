@@ -10,6 +10,7 @@ import android.view.WindowManager;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 
@@ -36,6 +37,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        initNavigationBar();
+
+        initSpeedDialFloatingButton(savedInstanceState == null);
+
+    }
+
+    private void initNavigationBar(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
                     View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
@@ -70,9 +78,6 @@ public class MainActivity extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commit();
             }
         });
-
-        initSpeedDialFloatingButton(savedInstanceState == null);
-
     }
 
     private void initSpeedDialFloatingButton(boolean isAddActionItems) {
