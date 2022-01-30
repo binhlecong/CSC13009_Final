@@ -46,7 +46,7 @@
                 android:layout_gravity="start">
 
                 <ImageView
-                    android:layout_width="40dp"
+                    android:layout_width="30dp"
                     android:layout_height="40dp"
                     android:src="@drawable/logo_app"/>
 
@@ -55,7 +55,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sourceserif4"
                     android:text="@string/smart_english_app_name"
-                    android:textSize="24sp"
+                    android:textSize="18sp"
                     android:textStyle="bold"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="5dp"/>
