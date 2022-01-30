@@ -195,6 +195,12 @@ public abstract class CameraActivity extends AppCompatActivity
         turnOffTestMode();
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
     protected int[] getRgbBytes() {
         imageConverter.run();
         return rgbBytes;
