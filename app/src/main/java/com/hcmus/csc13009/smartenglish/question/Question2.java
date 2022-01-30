@@ -13,10 +13,6 @@ public class Question2 extends Question {
         super(QUESTION, null);
     }
 
-    public Question2(String target) {
-        super(QUESTION, target);
-    }
-
     @Override
     public boolean validate(String answer) {
         if (answer == null || answer.isEmpty())

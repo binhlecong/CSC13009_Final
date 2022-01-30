@@ -46,7 +46,7 @@ import java.util.Queue;
 public class MultiBoxTracker {
     // setting for test/learn mode
     public static TrackerOption trackOption = TrackerOption.FULL;
-    private static final int MAX_STORAGE_OBJECT = 5;
+    private static final int MAX_STORAGE_OBJECT = 8; // maximum storage object for generate question
 
     private static final float TEXT_SIZE_DIP = 18;
     private static final float MIN_SIZE = 16.0f;
@@ -165,7 +165,9 @@ public class MultiBoxTracker {
 
             getFrameToCanvasMatrix().mapRect(trackedPos);
             boxPaint.setColor(recognition.color);
-
+            // put into tracked list on screen
+            if (recognition.title.equals("tv"))
+                recognition.title = "television";
             objectOnScreen.add(new Pair<>(recognition.title, trackedPos));
             if (trackOption == TrackerOption.NOTHING)
                 continue;

@@ -47,8 +47,6 @@ public class QuestionHandler {
     }
 
     public boolean validate(String answer) {
-        if (answer.equals("tv"))
-            answer = "television";
         return this.question.validate(answer);
     }
 }

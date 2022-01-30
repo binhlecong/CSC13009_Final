@@ -27,9 +27,9 @@ public abstract class Question {
     }
 
     public void setTarget(String target) {
-        this.target = target;
         if (target.equals("tv"))
-            this.target = "television";
+            target = "television";
+        this.target = target;
     }
 
     abstract public boolean validate(String answer);

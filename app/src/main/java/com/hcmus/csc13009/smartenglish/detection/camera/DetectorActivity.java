@@ -28,7 +28,6 @@ import android.graphics.Typeface;
 import android.media.ImageReader.OnImageAvailableListener;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.util.Log;
 import android.util.Pair;
 import android.util.Size;
 import android.util.TypedValue;
@@ -293,22 +292,25 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                 showTarget(result.first);
                 TextToSpeechUtils.speak(getApplicationContext(), result.first);
                 showRespond("Nhấn vào từ để xem chi tiết");
+                viewModel.updateScore(result.first, 0, false);
+
             } else {
                 boolean isCorrect = questionHandler.validate(result.first);
                 TextToSpeechUtils.speak(getApplicationContext(), isCorrect ? "Correct" : "Wrong");
                 if (isCorrect) {
-                    isRunningQuestion = false;
-                    viewModel.updateScore(result.first, 1);
+                    viewModel.updateScore(result.first, 1, true);
                     showAnimation(true, x, y);
                     setScore(getScore() + 1);
+                    isRunningQuestion = false;
                 } else {
                     if (viewModel.answerWrong()) {
-                        viewModel.updateScore(questionHandler.getQuestion().getTarget(), -1);
+                        viewModel.updateScore(questionHandler.getQuestion().getTarget(), -1, true);
                         isRunningQuestion = false;
                     }
                     showAnimation(false, x, y);
                     showRespond("Sorry! That is a " + result.first);
                     setScore(getScore() - 1);
+
                 }
             }
         }
