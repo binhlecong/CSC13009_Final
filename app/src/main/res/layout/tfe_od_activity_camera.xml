@@ -44,6 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/app_name"
+                android:fontFamily="@font/sourceserif4"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -52,6 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
+                android:fontFamily="@font/sourceserif4"
                 android:text="@string/sw_mode_title" />
         </androidx.appcompat.widget.Toolbar>
 
