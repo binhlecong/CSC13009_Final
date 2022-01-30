@@ -299,7 +299,6 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                     isRunningQuestion = false;
                     viewModel.updateScore(result.first, 1);
                     showAnimation(true, x, y);
-                    // TODO: handle score
                     setScore(getScore() + 1);
                 } else {
                     if (viewModel.answerWrong()) {
@@ -308,7 +307,6 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                     }
                     showAnimation(false, x, y);
                     showRespond("Sorry! That is a " + result.first);
-                    // ToDO: handle score
                     setScore(getScore() - 1);
                 }
             }

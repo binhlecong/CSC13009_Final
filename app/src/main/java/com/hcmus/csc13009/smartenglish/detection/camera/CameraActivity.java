@@ -526,10 +526,11 @@ public abstract class CameraActivity extends AppCompatActivity
 
     private void turnOffTestMode() {
         BoxTrackerUtils.setMode(BoxTrackerUtils.CameraMode.LEARN);
-        requestTextView.setText("Hãy tìm đồ vật và chạm vào nó");
+        showRequest("Hãy tìm đồ vật và chạm vào nó");
+        showTarget("");
         sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         activityMode = LEARN_MODE;
-        TextView txtView = (TextView) findViewById(R.id.test_score);
+        TextView txtView = findViewById(R.id.test_score);
         if (txtView != null)
             txtView.setVisibility(View.GONE);
         setScore(0);
@@ -537,10 +538,11 @@ public abstract class CameraActivity extends AppCompatActivity
 
     private void turnOnTestMode() {
         BoxTrackerUtils.setMode(BoxTrackerUtils.CameraMode.TEST);
-        requestTextView.setText("Câu hỏi");
+        showRequest("Đang chuẩn bị câu hỏi...");
+        showTarget("");
         sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         activityMode = TEST_MODE;
-        TextView txtView = (TextView) findViewById(R.id.test_score);
+        TextView txtView = findViewById(R.id.test_score);
         if (txtView != null)
             txtView.setVisibility(View.VISIBLE);
         setScore(0);
@@ -549,6 +551,7 @@ public abstract class CameraActivity extends AppCompatActivity
     protected void setTestModeOn() {
         modeSwitchCompat.setChecked(true);
         modeSwitchCompat.postInvalidate();
+        turnOnTestMode();
     }
 
     protected int getScore() {
@@ -557,9 +560,9 @@ public abstract class CameraActivity extends AppCompatActivity
 
     protected void setScore(int score) {
         this.score = score;
-        TextView txtView = (TextView) findViewById(R.id.test_score);
-        if (txtView == null) return;
-        txtView.setText(String.format("Score: %d", score));
+        TextView txtView = findViewById(R.id.test_score);
+        if (txtView != null)
+            txtView.setText(String.format("Score: %d", score));
     }
 
     // Handle thread count changes

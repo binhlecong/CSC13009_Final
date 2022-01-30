@@ -60,4 +60,14 @@
     <include
         android:id="@+id/bottom_sheet_layout"
         layout="@layout/tfe_od_layout_bottom_sheet" />
+
+    <TextView
+        android:id="@+id/test_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:text="Score: 0"
+        android:textColor="@color/tfe_color_primary"
+        android:textSize="14sp"
+        android:visibility="invisible" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

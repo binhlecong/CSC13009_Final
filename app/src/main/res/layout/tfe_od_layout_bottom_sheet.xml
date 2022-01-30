@@ -38,10 +38,10 @@
             android:id="@+id/request"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Find objects that start with the letter"
+            android:text=""
             android:textAlignment="center"
-            android:textSize="14sp"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/black"
+            android:textSize="14sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -54,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:text="Nhấn vào cái gì đó"
+            android:text=""
             android:textAlignment="center"
             android:textColor="@color/tfe_color_primary_dark"
             android:textSize="34sp" />
@@ -90,69 +90,66 @@
         android:layout_marginTop="5dp"
         android:background="@android:color/darker_gray" />
 
-<!--    <RelativeLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="10dp"-->
-<!--        android:orientation="horizontal">-->
+    <!--    <RelativeLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="10dp"-->
+    <!--        android:orientation="horizontal">-->
 
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:text="Threads"-->
-<!--            android:textColor="@android:color/black" />-->
+    <!--        <TextView-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginTop="10dp"-->
+    <!--            android:text="Threads"-->
+    <!--            android:textColor="@android:color/black" />-->
 
-<!--        <LinearLayout-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_alignParentRight="true"-->
-<!--            android:background="@drawable/rectangle"-->
-<!--            android:gravity="center"-->
-<!--            android:orientation="horizontal"-->
-<!--            android:padding="4dp">-->
+    <!--        <LinearLayout-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_alignParentRight="true"-->
+    <!--            android:background="@drawable/rectangle"-->
+    <!--            android:gravity="center"-->
+    <!--            android:orientation="horizontal"-->
+    <!--            android:padding="4dp">-->
 
-<!--            <ImageView-->
-<!--                android:id="@+id/minus"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:src="@drawable/ic_baseline_remove" />-->
+    <!--            <ImageView-->
+    <!--                android:id="@+id/minus"-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:src="@drawable/ic_baseline_remove" />-->
 
-<!--            <TextView-->
-<!--                android:id="@+id/threads"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginLeft="10dp"-->
-<!--                android:layout_marginRight="10dp"-->
-<!--                android:text="4"-->
-<!--                android:textColor="@android:color/black"-->
-<!--                android:textSize="14sp" />-->
+    <!--            <TextView-->
+    <!--                android:id="@+id/threads"-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_marginLeft="10dp"-->
+    <!--                android:layout_marginRight="10dp"-->
+    <!--                android:text="4"-->
+    <!--                android:textColor="@android:color/black"-->
+    <!--                android:textSize="14sp" />-->
 
-<!--            <ImageView-->
-<!--                android:id="@+id/plus"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:src="@drawable/ic_baseline_add" />-->
-<!--        </LinearLayout>-->
-<!--    </RelativeLayout>-->
+    <!--            <ImageView-->
+    <!--                android:id="@+id/plus"-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:src="@drawable/ic_baseline_add" />-->
+    <!--        </LinearLayout>-->
+    <!--    </RelativeLayout>-->
 
     <TextView
+        android:id="@+id/respond_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
         android:textAlignment="center"
-        android:id="@+id/respond_text"
-        android:visibility="visible"
-        />
+        android:textSize="16sp"
+        android:visibility="visible" />
 
     <ImageView
+        android:id="@+id/helper_image"
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:src="@drawable/correct_cat"
-        android:visibility="gone"
-        android:id="@+id/helper_image"
-        />
-
+        android:visibility="gone" />
 
 
     <View
