@@ -11,4 +11,10 @@
     <color name="colorRating">#FBC02D</color>
     <color name="colorAccent">#52a2f7</color>
     <color name="colorDark">#414449</color>
+
+    <color name="colorBackground">#FDFCDC</color>
+    <color name="colorMain">#227C9D</color>
+    <color name="colorCorrect">#89B449</color>
+    <color name="colorIncorrect">#F07167</color>
+    <color name="colorRecent">#00AFB9</color>
 </resources>
