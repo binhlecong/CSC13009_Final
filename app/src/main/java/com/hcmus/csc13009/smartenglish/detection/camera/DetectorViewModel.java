@@ -46,10 +46,8 @@ public class DetectorViewModel extends AndroidViewModel {
         return Math.sqrt(Math.pow(x - u, 2) + Math.pow(y - v, 2));
     }
 
-    public void updateScore(@NonNull String label, int score) {
-        if (label.equals("tv"))
-            label = "television";
-        repository.updateScore(label, score);
+    public void updateScore(@NonNull String label, int score, boolean isTestMode) {
+        repository.updateScore(label, score, isTestMode);
     }
 
     public boolean answerWrong() {

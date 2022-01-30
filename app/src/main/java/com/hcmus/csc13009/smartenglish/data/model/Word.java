@@ -3,6 +3,7 @@ package com.hcmus.csc13009.smartenglish.data.model;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
@@ -19,12 +20,23 @@ public class Word implements Serializable {
     private int total;
     @ColumnInfo(name = "last_date")
     private long lastDate;
+    @ColumnInfo(name = "word_type")
+    private int wordType;
 
-    public Word(@NonNull String word, int correct, int total, long lastDate) {
+    public Word(@NonNull String word, int correct, int total, long lastDate, int wordType) {
         this.word = word;
         this.correct = correct;
         this.total = total;
         this.lastDate = lastDate;
+        this.wordType = wordType;
+    }
+    @Ignore
+    public Word(@NonNull String word, int correct, int total, long lastDate, boolean isTestMode) {
+        this.word = word;
+        this.correct = correct;
+        this.total = total;
+        this.lastDate = lastDate;
+        this.wordType = isTestMode ? 1 : 2;
     }
 
     @NonNull
@@ -44,6 +56,10 @@ public class Word implements Serializable {
         return lastDate;
     }
 
+    public int getWordType() {
+        return wordType;
+    }
+
     public void setWord(@NonNull String word) {
         this.word = word;
     }
@@ -59,5 +75,16 @@ public class Word implements Serializable {
     public void setLastDate(long lastDate) {
         if (getLastDate() < lastDate)
             this.lastDate = lastDate;
+    }
+
+    public void setWordType(int wordType) {
+        this.wordType = wordType;
+    }
+
+    public void setWordType(boolean isTestMode) {
+        if (isTestMode)
+            this.wordType |= 1;
+        else
+            this.wordType |= 2;
     }
 }

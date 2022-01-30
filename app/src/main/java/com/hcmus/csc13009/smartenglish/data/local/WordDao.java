@@ -24,16 +24,16 @@ public interface WordDao {
     @Update
     void updateWord(Word word);
 
-    @Query("SELECT * FROM word_table ORDER BY last_date")
+    @Query("SELECT * FROM word_table ORDER BY last_date DESC")
     LiveData<List<Word>> getAllWords();
 
     @Query( "SELECT * FROM word_table " +
-            "WHERE CAST(correct as REAL)/total >= 0.6 " +
+            "WHERE (CAST(correct as REAL)/total >= 0.6) and ((word_type >> 0 & 1) = 1)" +
             "ORDER BY CAST(correct as REAL)/total DESC, total DESC")
     LiveData<List<Word>> getAllCorrectWords();
 
     @Query( "SELECT * FROM word_table " +
-            "WHERE CAST(correct as REAL)/total < 0.5 " +
+            "WHERE (CAST(correct as REAL)/total < 0.5) and ((word_type >> 0 & 1) = 1)" +
             "ORDER BY CAST(correct as REAL)/total ASC, total DESC")
     LiveData<List<Word>> getAllInCorrectWords();
 

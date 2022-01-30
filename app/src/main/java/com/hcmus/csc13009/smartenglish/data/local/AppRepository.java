@@ -65,7 +65,7 @@ public class AppRepository {
         });
     }
 
-    public void updateScore(@NonNull String label, int score) {
+    public void updateScore(@NonNull String label, int score, boolean isTestMode) {
         AppRoomDatabase.databaseWriteExecutor.execute(() -> {
             List<Word> words = wordDao.getWord(label);
             Word word;
@@ -76,13 +76,14 @@ public class AppRepository {
                 wrong = 0;
             }
             if (words == null || words.isEmpty()) {
-                word = new Word(label, correct, correct + wrong, TimeUtils.getCurrentTimeMillis());
+                word = new Word(label, correct, correct + wrong, TimeUtils.getCurrentTimeMillis(), isTestMode);
                 wordDao.insertWord(word);
             } else {
                 word = words.get(0);
                 word.setCorrect(word.getCorrect() + correct);
                 word.setTotal(word.getTotal() + correct + wrong);
                 word.setLastDate(TimeUtils.getCurrentTimeMillis());
+                word.setWordType(isTestMode);
                 wordDao.updateWord(word);
             }
 //            Log.i("@@@ word", word.getTotal() + " " + word.getCorrect());
