@@ -46,6 +46,7 @@
                     android:textAllCaps="true"
                     android:textStyle="bold"
                     android:textSize="20sp"
+                    android:fontFamily="@font/sourceserif4"
                     android:text="Television"/>
 
             </LinearLayout>

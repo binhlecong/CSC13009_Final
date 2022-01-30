@@ -45,12 +45,14 @@
                     android:layout_height="wrap_content"
                     android:text="Wake up"
                     android:textAllCaps="true"
+                    android:fontFamily="@font/sourceserif4"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/correct_per_total"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/sourceserif4"
                     tools:text="Repeating" />
 
             </LinearLayout>
