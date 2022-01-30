@@ -185,6 +185,7 @@ public abstract class CameraActivity extends AppCompatActivity
         targetTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (activityMode == TEST_MODE) return;
                 PopupView popupView = new PopupView(getApplicationContext());
                 popupView.showPopupWindow(v, targetTextView.getText().toString());
             }
