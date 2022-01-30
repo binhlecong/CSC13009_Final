@@ -116,6 +116,7 @@ public abstract class CameraActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if (hasPermission()) {
             setFragment();
@@ -193,6 +194,12 @@ public abstract class CameraActivity extends AppCompatActivity
         });
         // Set explore mode as the default mode
         turnOffTestMode();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     protected int[] getRgbBytes() {
