@@ -14,15 +14,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
-            android:orientation="vertical"
-            android:fillViewport="true">
+            android:fillViewport="true"
+            android:orientation="vertical">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                tools:listitem="@layout/item_list_words_correct"/>
+                tools:listitem="@layout/item_list_words_correct" />
 
         </androidx.core.widget.NestedScrollView>
 

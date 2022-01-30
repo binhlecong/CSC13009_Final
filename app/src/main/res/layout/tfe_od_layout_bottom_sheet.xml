@@ -38,9 +38,9 @@
             android:id="@+id/request"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/sourceserif4"
             android:text=""
             android:textAlignment="center"
-            android:fontFamily="@font/sourceserif4"
             android:textColor="@android:color/black"
             android:textSize="14sp" />
     </LinearLayout>
@@ -55,8 +55,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:text=""
             android:fontFamily="@font/sourceserif4"
+            android:text=""
             android:textAlignment="center"
             android:textColor="@color/tfe_color_primary_dark"
             android:textSize="34sp" />
@@ -142,8 +142,8 @@
         android:id="@+id/respond_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
         android:fontFamily="@font/sourceserif4"
+        android:textAlignment="center"
         android:textSize="16sp"
         android:visibility="visible" />
 
@@ -173,8 +173,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="@string/app_name"
             android:fontFamily="@font/sourceserif4"
+            android:text="@string/app_name"
             android:textColor="@android:color/black" />
 
         <androidx.appcompat.widget.SwitchCompat
@@ -183,9 +183,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:checked="false"
+            android:fontFamily="@font/sourceserif4"
             android:gravity="end"
             android:text="Thi - Thành - Bình"
-            android:fontFamily="@font/sourceserif4"
             android:textColor="@android:color/black" />
     </LinearLayout>
 </LinearLayout>

@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="15dp"
-    app:cardElevation="8dp"
-    app:cardCornerRadius="10dp">
+    app:cardCornerRadius="10dp"
+    app:cardElevation="8dp">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/colorAccent">
+        android:background="@color/colorAccent"
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,8 +34,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
                 android:layout_gravity="center_vertical"
+                android:layout_marginStart="10dp"
                 android:layout_toEndOf="@id/image_correct_list_item"
                 android:orientation="vertical">
 
@@ -43,20 +43,20 @@
                     android:id="@+id/word"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAllCaps="true"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
                     android:fontFamily="@font/sourceserif4"
-                    android:text="Television"/>
+                    android:text="Television"
+                    android:textAllCaps="true"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="16dp"
-                android:layout_gravity="center_vertical"
                 android:layout_toEndOf="@id/image_correct_list_item"
                 android:orientation="vertical">
 
@@ -64,10 +64,9 @@
                     android:id="@+id/word_speaker_image"
                     android:layout_width="48dp"
                     android:layout_height="match_parent"
-                    android:src="@drawable/ic_speaker"
                     android:layout_gravity="end|center_vertical"
                     android:rotation="180"
-                    />
+                    android:src="@drawable/ic_speaker" />
 
             </LinearLayout>
 

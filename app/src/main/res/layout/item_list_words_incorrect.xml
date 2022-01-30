@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="15dp"
-    app:cardElevation="8dp"
-    app:cardCornerRadius="10dp">
+    app:cardCornerRadius="10dp"
+    app:cardElevation="8dp">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="#D9A1A0">
+        android:background="#D9A1A0"
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,8 +34,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
                 android:layout_gravity="center_vertical"
+                android:layout_marginStart="10dp"
                 android:layout_toEndOf="@id/image_correct_list_item"
                 android:orientation="vertical">
 
@@ -43,9 +43,9 @@
                     android:id="@+id/word"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/sourceserif4"
                     android:text="Wake up"
                     android:textAllCaps="true"
-                    android:fontFamily="@font/sourceserif4"
                     android:textStyle="bold" />
 
                 <TextView
@@ -56,14 +56,14 @@
                     tools:text="Repeating" />
 
             </LinearLayout>
+
             <include
                 android:id="@+id/progress_bar"
                 layout="@layout/progress_bar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="end"
-                android:layout_marginEnd="10dp"
-                />
+                android:layout_marginEnd="10dp" />
         </LinearLayout>
 
     </LinearLayout>

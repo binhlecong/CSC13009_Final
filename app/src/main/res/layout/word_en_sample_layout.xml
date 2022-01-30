@@ -2,9 +2,9 @@
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:fontFamily="@font/sourceserif4"
     android:padding="5dp"
     android:paddingStart="20dp"
     android:text="Vietnamese sample"
     android:textColor="@color/colorAccent"
-    android:fontFamily="@font/sourceserif4"
     android:textSize="16sp" />
