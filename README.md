@@ -15,12 +15,7 @@ We use machine learning to identify surrounding objects, and provide the related
 
 ## Features
 - Explore vocabulary of surrounding obejcts.
-    - Select importance of class
-    - Specify a URL leading to the class
-    - Alarm before a certain amount of time
 - Test learned words
-    - Click on notification to open link instantly
-    - Set class as a one-time event or repeated weekly
 - View test results and achivements
 
 ## Demo
