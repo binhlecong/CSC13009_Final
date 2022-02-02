@@ -24,15 +24,21 @@ We use machine learning to identify surrounding objects, and provide the related
 <img src="./readme_assets/instruction.jpg" height=300 />
 
 ### Main Screen
-<img src="./readme_assets/history.jpg" alt="Add classroom" height=300>
-<img src="./readme_assets/correct_ans.jpg" alt="Add classroom" height=300>
-<img src="./readme_assets/wrong_ans.jpg" alt="Add classroom" height=300>
+<p float="left">
+  <img src="./readme_assets/history.jpg" alt="Add classroom" height=300>
+  <img src="./readme_assets/correct_ans.jpg" alt="Add classroom" height=300>
+  <img src="./readme_assets/wrong_ans.jpg" alt="Add classroom" height=300>
+</p>
 
 ### Study Screen
-<img src="./readme_assets/study_detect.jpg" alt="QR code" height=300>
-<img src="./readme_assets/study_meaning.jpg" alt="QR code" height=300>
+<p float="left">
+  <img src="./readme_assets/study_detect.jpg" alt="QR code" height=300>
+  <img src="./readme_assets/study_meaning.jpg" alt="QR code" height=300>
+</p>
 
 ## Test Screen
-<img src="./readme_assets/test_find.jpg" alt="QR code" height=300>
-<img src="./readme_assets/test_start_with.jpg" alt="QR code" height=300>
-<img src="./readme_assets/test_listen.jpg" alt="QR code" height=300>
+<p float="left">
+  <img src="./readme_assets/test_find.jpg" alt="QR code" height=300>
+  <img src="./readme_assets/test_start_with.jpg" alt="QR code" height=300>
+  <img src="./readme_assets/test_listen.jpg" alt="QR code" height=300>
+</p>
